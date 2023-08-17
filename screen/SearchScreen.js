@@ -192,7 +192,7 @@ const SearchScreen = () => {
     },
   ];
   return (
-    <SafeAreaView>
+    <SafeAreaView style={{ backgroundColor: "white" }}>
       <ScrollView style={{ marginTop: -33 }}>
         <View
           style={{
@@ -290,7 +290,7 @@ const SearchScreen = () => {
               />
             </ScrollView>
           )}
-          keyExtractor={(item) => item.index}
+          // keyExtractor={(item) => item.index}
         />
         <View style={{ backgroundColor: "yellow", alignItems: "center" }}>
           <Text style={{ color: "red", fontSize: 30 }}>Top Deals</Text>
@@ -316,6 +316,53 @@ const SearchScreen = () => {
             </Pressable>
           ))}
         </View>
+        <Text
+          style={{
+            borderColor: "#D0D0D0",
+            borderWidth: 5,
+            height: 1,
+            marginTop: 15,
+            marginBottom: 15,
+          }}
+        />
+        <Text>Deals today</Text>
+        <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+          {offers.map((item, index) => (
+            <Pressable
+              style={{
+                
+                alignItems: "center",
+                justifyContent: "center",
+                marginVertical: 15,
+              }}
+            >
+              <Image
+                style={{ width: 150, height: 150, resizeMode: "contain" }}
+                source={{ uri: item?.image }}
+              />
+              <Text style={{ textDecorationLine: "line-through" }}>
+                {item.oldPrice}$
+              </Text>
+              <Text>{item.price}$</Text>
+              <Text
+                style={{
+                  backgroundColor: "red",
+                  // fontSize: 15,
+                  paddingVertical: 5,
+                  width: 130,
+                  alignItems: "center",
+                  justifyContent: "center",
+                  textAlign:"center",
+                  marginTop:10,
+                  borderRadius:6,
+                  color:'white'
+                }}
+              >
+                {item?.offer}$
+              </Text>
+            </Pressable>
+          ))}
+        </ScrollView>
       </ScrollView>
     </SafeAreaView>
   );

@@ -13,13 +13,6 @@ import CartScreen from "./CartScreen";
 const Main = () => {
   const Stack = createNativeStackNavigator();
   const Tab = createBottomTabNavigator();
-
-  const optionstabBar = (label, colorcpn, icon1, icon2) => {
-    tabBarLabel: label;
-    tabBarStyle: ({ color: "colorcpn" });
-    tabBarIcon: ({ focused }) => (focused ? icon1 : icon2);
-  };
-
   return (
     <Tab.Navigator>
       <Tab.Screen
