@@ -42,7 +42,7 @@ const Main = () => {
         component={CartScreen}
         name="Cart"
       />
-      <Tab.Screen
+      {/* <Tab.Screen
         options={{
           tabBarLabel: "Search",
           tabBarIcon: ({ focused }) =>
@@ -54,7 +54,7 @@ const Main = () => {
         }}
         component={SearchScreen}
         name="Search"
-      />
+      /> */}
       <Tab.Screen
         options={{
           tabBarLabel: "User",
