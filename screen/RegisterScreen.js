@@ -1,4 +1,5 @@
 import {
+  Alert,
   Button,
   Image,
   KeyboardAvoidingView,
@@ -10,12 +11,42 @@ import {
 } from "react-native";
 import { Zocial } from "@expo/vector-icons";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
-import React from "react";
+import React, { useState } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useNavigation } from "@react-navigation/native";
-import { Octicons } from "@expo/vector-icons";
+import { Entypo } from "@expo/vector-icons";
+import axios from "axios";
+import { Ionicons } from "@expo/vector-icons";
 
 const RegisterScreen = () => {
+  const [email, setEmail] = useState("");
+  const [name, setName] = useState("");
+  const [password, setPassword] = useState("");
+
+  const handleregister = () => {
+    const user = {
+      name: name,
+      email: email,
+      password: password,
+    };
+
+    axios
+      .post("http://localhost:8081/register", user)
+      .then(
+        (res) => (
+          console.log(res),
+          Alert.alert("register success"),
+          setName(""),
+          setEmail(""),
+          setPassword("")
+        )
+      )
+      .catch((error) => {
+        Alert.alert("false", "try again late");
+        console.log(error);
+      });
+  };
+
   const navigator = useNavigation();
   return (
     <SafeAreaView style={styles.container}>
@@ -45,13 +76,12 @@ const RegisterScreen = () => {
           }}
         >
           <View style={{ alignItems: "center", flexDirection: "row" }}>
-            <Zocial
-              style={{ marginRight: 20 }}
-              name="email"
-              size={24}
-              color="black"
+            <Ionicons name="person" size={24} color="black" />
+            <TextInput
+              value={name}
+              onChangeText={(text) => setName(text)}
+              placeholder="Enter your Username"
             />
-            <TextInput placeholder="Enter your Email" />
           </View>
         </View>
 
@@ -74,7 +104,12 @@ const RegisterScreen = () => {
               color="black"
               style={{ marginRight: 20 }}
             />
-            <TextInput placeholder="Enter your Password" />
+            <TextInput
+              value={password}
+              secureTextEntry={{password}}
+              onChangeText={(text) => setPassword(text)}
+              placeholder="Enter your Password"
+            />
           </View>
         </View>
 
@@ -91,21 +126,22 @@ const RegisterScreen = () => {
           }}
         >
           <View style={{ alignItems: "center", flexDirection: "row" }}>
-            <Octicons
-              name="number"
-              size={24}
-              color="black"
-              style={{ marginRight: 20 }}
+            <Entypo name="mail" size={24} color="black" />
+            <TextInput
+              value={email}
+              placeholder="enter your  mail"
+              onChangeText={(text) => setEmail(text) }
             />
-            <TextInput placeholder="enter your phone Number" />
           </View>
         </View>
 
-        <View style={styles.ButtonStyle}>
-          <Text>Sign Up</Text>
-        </View>
+        <Pressable style={styles.ButtonStyle} onPress={handleregister}>
+          <Text>Register</Text>
+        </Pressable>
         <Pressable onPress={() => navigator.navigate("Login")}>
-          <Text style={{marginLeft:60, marginTop:30}}>Have an Account? Log in now</Text>
+          <Text style={{ marginLeft: 60, marginTop: 30 }}>
+            Have an Account? Log in now
+          </Text>
         </Pressable>
       </KeyboardAvoidingView>
     </SafeAreaView>
@@ -130,11 +166,11 @@ const styles = StyleSheet.create({
     marginTop: 30,
     alignItems: "center",
     backgroundColor: "yellow",
-    width: 150,
+    //width: 150,
     height: 60,
     justifyContent: "center",
     borderRadius: 50,
-    marginLeft: 100,
+    //marginLeft: 100,
     fontSize: 30,
   },
   TextRow: {

@@ -15,7 +15,7 @@ import { useNavigation } from "@react-navigation/native";
 const ProfileScreen = () => {
   const deals = [
     {
-      id: "20",
+      key: "20",
       title: "OnePlus Nord CE 3 Lite 5G (Pastel Lime, 8GB RAM, 128GB Storage)",
       oldPrice: 25000,
       price: 19000,
@@ -31,7 +31,7 @@ const ProfileScreen = () => {
       size: "6 GB RAM 128GB Storage",
     },
     {
-      id: "30",
+      key: "30",
       title:
         "Samsung Galaxy S20 FE 5G (Cloud Navy, 8GB RAM, 128GB Storage) with No Cost EMI & Additional Exchange Offers",
       oldPrice: 74000,
@@ -48,7 +48,7 @@ const ProfileScreen = () => {
       size: "8 GB RAM 128GB Storage",
     },
     {
-      id: "40",
+      key: "40",
       title:
         "Samsung Galaxy M14 5G (ICY Silver, 4GB, 128GB Storage) | 50MP Triple Cam | 6000 mAh Battery | 5nm Octa-Core Processor | Android 13 | Without Charger",
       oldPrice: 16000,
@@ -64,7 +64,7 @@ const ProfileScreen = () => {
       size: "6 GB RAM 64GB Storage",
     },
     {
-      id: "40",
+      key: "50",
       title:
         "realme narzo N55 (Prime Blue, 4GB+64GB) 33W Segment Fastest Charging | Super High-res 64MP Primary AI Camera",
       oldPrice: 12999,
@@ -80,7 +80,7 @@ const ProfileScreen = () => {
   ];
   const navigator = useNavigation();
   return (
-    <SafeAreaView>
+    <ScrollView>
       <View style={{ marginTop: -30 }}>
         <ImageBackground
           style={{ height: 150 }}
@@ -96,8 +96,9 @@ const ProfileScreen = () => {
                 width: 150,
                 borderRadius: 100,
                 position: "absolute",
-                top: 90,
+                top: 60,
                 left: 120,
+                resizeMode: "contain",
               }}
               source={{
                 uri: "https://scontent.fsgn5-9.fna.fbcdn.net/v/t39.30808-1/363393326_301194812294336_525599344610265081_n.jpg?stp=dst-jpg_p320x320&_nc_cat=102&ccb=1-7&_nc_sid=7206a8&_nc_ohc=8f96k5b-wigAX9i8squ&_nc_ht=scontent.fsgn5-9.fna&oh=00_AfBixBLzyNDID2WpEw60MjoYYOPN1hPe_AOTmzKhyvZRnQ&oe=64E228EC",
@@ -105,81 +106,92 @@ const ProfileScreen = () => {
             />
           </View>
         </ImageBackground>
-      </View>
-      <ScrollView style={{ marginTop: 90 }}>
-        <Text style={{ textAlign: "center", fontSize: 17, fontWeight: 20 }}>
-          Nguyễn Quang Toán
-        </Text>
-        <ScrollView
-          style={{
-            marginTop: 5,
-          }}
-        >
-          {deals.map((item, index) => (
-            <Pressable
+        <Text
               style={{
-                flexDirection: "row",
-                backgroundColor: "#CD853F",
-                borderBottomColor: "brown",
-                borderBottomWidth: 5,
+                textAlign: "center",
+                fontSize: 17,
+                fontWeight: "bold",
+                marginTop:55,
               }}
             >
-              <View>
-                <Image
-                  style={{ width: 160, height: 150, marginTop: 5 }}
-                  source={{ uri: item.image }}
-                />
+              Nguyễn Quang Toán
+            </Text>
+      </View>
+      <ScrollView
+        style={{
+          marginTop: 5,
+        }}
+      > 
+        {deals.map((item, index) => (
+          <Pressable
+            key={item.key}
+            style={{
+              flexDirection: "row",
+              backgroundColor: "#CD853F",
+              borderBottomColor: "brown",
+              borderBottomWidth: 5,
+            }}
+          >
+            <View>
+              <Image
+                style={{
+                  width: 160,
+                  height: 150,
+                  marginTop: 5,
+                  resizeMode: "contain",
+                }}
+                source={{ uri: item.image }}
+              />
+              <View style={{ flexDirection: "row" }}>
                 <View style={{ flexDirection: "row" }}>
-                  <View style={{ flexDirection: "row" }}>
-                    <MaterialIcons
-                      name="messenger-outline"
-                      size={24}
-                      color="black"
-                    />
-                    <Text>43</Text>
-                  </View>
+                  <MaterialIcons
+                    name="messenger-outline"
+                    size={24}
+                    color="black"
+                  />
+                  <Text>43</Text>
+                </View>
 
-                  <View style={{ flexDirection: "row", marginLeft: 15 }}>
-                    <AntDesign name="heart" size={24} color="black" />
-                    <Text>15</Text>
-                  </View>
+                <View style={{ flexDirection: "row", marginLeft: 15 }}>
+                  <AntDesign name="heart" size={24} color="black" />
+                  <Text>15</Text>
                 </View>
               </View>
+            </View>
+            <ScrollView>
+              <Text
+                style={{
+                  fontSize: 10,
+                  textAlignVertical: "auto",
+                  padding: 5,
+                }}
+              >
+                Tên Sản Phẩm: {item?.title}
+              </Text>
+              <Text style={{ fontSize: 10, padding: 5 }}>
+                Màu Sắc: {item?.color}
+              </Text>
+              <Text style={{ fontSize: 10, padding: 5 }}>
+                Loại: {item?.size}
+              </Text>
+              <Text style={{ fontSize: 10, padding: 5 }}>
+                Giá Bán: {item?.price}
+              </Text>
 
-              <ScrollView>
-                <Text
-                  style={{
-                    fontSize: 10,
-                    textAlignVertical: "auto",
-                    padding: 5,
-                  }}
-                >
-                  Tên Sản Phẩm: {item?.title}
-                </Text>
-                <Text style={{ fontSize: 10, padding: 5 }}>
-                  Màu Sắc: {item?.color}
-                </Text>
-                <Text style={{ fontSize: 10, padding: 5 }}>
-                  Loại: {item?.size}
-                </Text>
-                <Text style={{ fontSize: 10, padding: 5 }}>
-                  Giá Bán: {item?.price}
-                </Text>
-
-                <View style={{ flexDirection: "row" }}>
-                  <Pressable onPress={() => navigator.navigate("ItemsScreen")}>
-                    <Text style={styles.buttonUpdateDesign}>Chỉnh Sửa</Text>
-                  </Pressable>
-                  <Pressable>
-                    <Text style={styles.buttondeleteDesign}>Xóa Sản Phẩm</Text>
-                  </Pressable>
-                </View>
-              </ScrollView>
-            </Pressable>
-          ))}
-        </ScrollView>
+              <View style={{ flexDirection: "row" }}>
+                <Pressable onPress={() => navigator.navigate("ItemsScreen")}>
+                  <Text style={styles.buttonUpdateDesign}>Chỉnh Sửa</Text>
+                </Pressable>
+                <Pressable>
+                  <Text style={styles.buttondeleteDesign}>Xóa Sản Phẩm</Text>
+                </Pressable>
+              </View>
+            </ScrollView>
+          </Pressable>
+        ))}
       </ScrollView>
-    </SafeAreaView>
+      
+    </ScrollView>
   );
 };
 

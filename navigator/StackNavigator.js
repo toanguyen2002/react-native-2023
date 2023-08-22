@@ -9,6 +9,7 @@ import ItemsScreen from "../screen/ItemsScreen";
 
 const StackNavigator = () => {
   const Stack = createNativeStackNavigator();
+
   return (
     <NavigationContainer>
       <Stack.Navigator>

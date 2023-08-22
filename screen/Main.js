@@ -4,12 +4,11 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import HomeSCreen from "./HomeSCreen";
 import ProfileScreen from "./ProfileScreen";
-import SearchScreen from "./SearchScreen";
 import { AntDesign } from "@expo/vector-icons";
 import { Entypo } from "@expo/vector-icons";
 import { Ionicons } from "@expo/vector-icons";
-import { FontAwesome5 } from "@expo/vector-icons";
-import CartScreen from "./CartScreen";
+import { MaterialCommunityIcons } from "@expo/vector-icons";
+import NewsScreen from "./NewsScreen";
 const Main = () => {
   const Stack = createNativeStackNavigator();
   const Tab = createBottomTabNavigator();
@@ -31,16 +30,24 @@ const Main = () => {
       />
       <Tab.Screen
         options={{
-          tabBarLabel: "Cart",
+          tabBarLabel: "News",
           tabBarIcon: ({ focused }) =>
             focused ? (
-              <Ionicons name="md-cart-outline" size={24} color="black" />
+              <MaterialCommunityIcons
+                name="newspaper-variant-outline"
+                size={24}
+                color="black"
+              />
             ) : (
-              <Ionicons name="ios-cart" size={24} color="black" />
+              <MaterialCommunityIcons
+                name="newspaper-variant"
+                size={24}
+                color="black"
+              />
             ),
         }}
-        component={CartScreen}
-        name="Cart"
+        component={NewsScreen}
+        name="News"
       />
       {/* <Tab.Screen
         options={{
