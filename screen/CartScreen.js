@@ -7,6 +7,7 @@ const CartScreen = () => {
   return cart.map((item, index) => (
     <View>
       <Text>{item.category}</Text>
+      <Text>{item.category}</Text>
     </View>
   ));
 };
