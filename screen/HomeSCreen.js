@@ -17,6 +17,9 @@ import { MaterialIcons } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
 import axios from "axios";
 import DropDownPicker from "react-native-dropdown-picker";
+import { useDispatch, useSelector } from "react-redux";
+import { addToCart } from "../redux/CartReduce";
+import { AntDesign } from "@expo/vector-icons";
 
 const HomeSCreen = () => {
   const [products, setproducts] = useState([]);
@@ -29,17 +32,22 @@ const HomeSCreen = () => {
   const [category, setcategory] = useState("jewelry");
   const [open, setOpen] = useState(false);
   const navigator = useNavigation();
+  const cart = useSelector((state) => state.cart.cart);
+  // const cart = useSelector((state) => state.cart.cart);
+  // console.log("cart: " + cart);
   useEffect(() => {
     const getAllProduct = async () => {
-      const respone = await axios.get(`https://fakestoreapi.com/products`);
+      const respone = await axios.get(
+        `https://api.escuelajs.co/api/v1/products?offset=0&limit=20`
+      );
       setproducts(respone.data);
       // console.log(respone);
     };
     getAllProduct();
   }, []);
   const onGenderOpen = useCallback(() => {
-    setCompanyOpen(false)
-  },[])
+    setCompanyOpen(false);
+  }, []);
   const list = [
     {
       key: "0",
@@ -227,6 +235,11 @@ const HomeSCreen = () => {
   //     </View>
   //   ) : null;
   // };
+  const dispacth = useDispatch();
+  const addItemToCart = (item) => {
+    dispacth(addToCart(item));
+    console.log(cart);
+  };
   return (
     <SafeAreaView style={{ backgroundColor: "white" }}>
       <ScrollView style={{ marginTop: -33 }}>
@@ -264,6 +277,12 @@ const HomeSCreen = () => {
             />
           </Pressable>
           <Ionicons name="ios-mic" size={24} color="black" />
+          <Pressable
+            style={{ marginLeft: 10 }}
+            onPress={() => navigator.navigate("")}
+          >
+            <AntDesign name="shoppingcart" size={24} color="black" />
+          </Pressable>
         </View>
 
         <Pressable
@@ -288,7 +307,7 @@ const HomeSCreen = () => {
         >
           {list.map((item, index) => (
             <Pressable
-              key={item.key}
+              key={item.index}
               style={{
                 justifyContent: "center",
                 alignItems: "center",
@@ -318,7 +337,7 @@ const HomeSCreen = () => {
           pagingEnabled
           showsHorizontalScrollIndicator={false}
           automaticallyAdjustContentInsets
-          renderItem={({ item, index }) => (
+          renderItem={({ item }) => (
             <ScrollView showsHorizontalScrollIndicator={false}>
               <Image
                 style={{ width: 392, height: 200, borderRadius: 30 }}
@@ -328,8 +347,14 @@ const HomeSCreen = () => {
           )}
           // keyExtractor={(item) => item.index}
         />
-        <View style={{ backgroundColor: "yellow", alignItems: "center" }}>
-          <Text style={{ color: "red", fontSize: 30 }}>Top Deals</Text>
+        <View
+          style={{
+            backgroundColor: "#C6E2FF",
+            alignItems: "center",
+            borderRadius: 10,
+          }}
+        >
+          <Text style={{ color: "#F4A460", fontSize: 30 }}>Top Deals</Text>
         </View>
         <View
           style={{
@@ -339,7 +364,7 @@ const HomeSCreen = () => {
           }}
         >
           {deals.map((item, index) => (
-            <Pressable key={item.key}>
+            <Pressable key={index}>
               <Image
                 style={{
                   width: 180,
@@ -361,7 +386,7 @@ const HomeSCreen = () => {
             marginBottom: 15,
           }}
         />
-        <Text>Deals today</Text>
+        <Text style={{ fontWeight: "600" }}>Deals today</Text>
         <ScrollView horizontal showsHorizontalScrollIndicator={false}>
           {offers.map((item, index) => (
             <Pressable
@@ -371,6 +396,20 @@ const HomeSCreen = () => {
                 justifyContent: "center",
                 marginVertical: 15,
               }}
+              // fb4a9174ceae4a0a91d3d3919df8f538
+              onPress={() =>
+                navigator.navigate("ItemsScreen", {
+                  key: item?.key,
+                  title: item?.title,
+                  offer: item?.offer,
+                  oldPrice: item?.oldPrice,
+                  price: item?.price,
+                  image: item?.image,
+                  carouselImages: item?.carouselImages,
+                  color: item?.color,
+                  size: item?.size,
+                })
+              }
             >
               <Image
                 style={{ width: 150, height: 150, resizeMode: "contain" }}
@@ -406,11 +445,11 @@ const HomeSCreen = () => {
           }}
         >
           <DropDownPicker
-          style={{
-            borderColor:'#B7B7B7',
-            height:30,
-            marginBottom:open?120:15
-          }}
+            style={{
+              borderColor: "#B7B7B7",
+              height: 30,
+              marginBottom: open ? 120 : 15,
+            }}
             open={open}
             value={category}
             items={items}
@@ -424,18 +463,36 @@ const HomeSCreen = () => {
           />
         </View>
         <View style={{ flex: 1, flexDirection: "row", flexWrap: "wrap" }}>
-          {products.map((item) => (
-            <Pressable style={{ marginHorizontal: 20, marginVertical: 25 }}>
+          {products.map((item, index) => (
+            <Pressable
+              style={{ marginHorizontal: 20, marginVertical: 25 }}
+              key={index}
+              onPress={() =>
+                navigator.navigate("ItemsScreen", {
+                  key: item?.id,
+                  title: item?.title,
+                  //     offer: item?.offer,
+                  price: item?.price,
+                  //     image: item?.image,
+                  carouselImages: item?.images,
+                  //     color: item?.color,
+                  //     size: item?.size,
+                })
+              }
+            >
               <Text>{item?.id}</Text>
+              {/* {item?.images.map((item, index) => ( */}
               <Image
+                key={index}
                 style={{
                   width: 140,
                   height: 140,
                   alignItems: "center",
                   resizeMode: "contain",
                 }}
-                source={{ uri: item?.image }}
+                source={{ uri: item?.images[0] }}
               />
+              {/*  ))} */}
               <Text numberOfLines={1} style={{ width: 150, marginTop: 10 }}>
                 {item.title}
               </Text>
@@ -448,9 +505,9 @@ const HomeSCreen = () => {
                 <Text style={{ fontWeight: "bold", fontSize: 13 }}>
                   {item?.price}
                 </Text>
-                <Text style={{ color: "#FFC72C", fontWeight: "bold" }}>
+                {/* <Text style={{ color: "#FFC72C", fontWeight: "bold" }}>
                   {item?.rating?.rate} ratings
-                </Text>
+                </Text> */}
               </View>
               <Pressable
                 style={{
@@ -460,6 +517,7 @@ const HomeSCreen = () => {
                   alignItems: "center",
                   borderRadius: 20,
                 }}
+                onPress={() => addItemToCart(item)}
               >
                 <Text style={{ textShadowColor: 2, color: "brown" }}>
                   Add To Cart

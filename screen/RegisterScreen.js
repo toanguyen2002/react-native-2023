@@ -106,7 +106,7 @@ const RegisterScreen = () => {
             />
             <TextInput
               value={password}
-              secureTextEntry={{password}}
+              secureTextEntry={true}
               onChangeText={(text) => setPassword(text)}
               placeholder="Enter your Password"
             />
@@ -130,7 +130,7 @@ const RegisterScreen = () => {
             <TextInput
               value={email}
               placeholder="enter your  mail"
-              onChangeText={(text) => setEmail(text) }
+              onChangeText={(text) => setEmail(text)}
             />
           </View>
         </View>

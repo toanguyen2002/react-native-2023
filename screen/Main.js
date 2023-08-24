@@ -16,7 +16,7 @@ const Main = () => {
     <Tab.Navigator>
       <Tab.Screen
         options={{
-          tabBarLabel: "Home",
+          // tabBarLabel: "Home",
           tabBarStyle: { color: "#0087E9" },
           tabBarIcon: ({ focused }) =>
             focused ? (

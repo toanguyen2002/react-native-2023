@@ -3,6 +3,7 @@ import {
   FlatList,
   Image,
   LogBox,
+  Pressable,
   ScrollView,
   StyleSheet,
   Text,
@@ -10,8 +11,10 @@ import {
 } from "react-native";
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import { useNavigation } from "@react-navigation/native";
 
 const CreateFlatList = () => {
+  const navigator = useNavigation();
   const list = [
     {
       key: "0",
@@ -121,27 +124,60 @@ const CreateFlatList = () => {
   useEffect(() => {
     const getUsers = async () => {
       const respone = await axios.get(
-        `https://fakenews.squirro.com/news/sport?count=${Currentpage}`
+        `https://newsapi.org/v2/everything?domains=wsj.com&apiKey=fb4a9174ceae4a0a91d3d3919df8f538&pageSize={Currentpage}`
       );
 
-      setUsers(respone.data.news);
+      setUsers(respone.data.articles);
       console.log(users);
     };
     getUsers();
   }, [Currentpage]);
   const renderItem = ({ item }) => {
     return (
-      <View
-        style={{ flexDirection: "column", borderTopColor: "#aaa", borderWidth: 1 ,height:100}}
+      <Pressable
+        onPress={() =>
+          navigator.navigate("ItemNewScreen", {
+            author: item.author,
+            title: item.title,
+            description: item.description,
+            content: item.content,
+            publishedAt: item.publishedAt,
+            image: item.urlToImage,
+          })
+        }
       >
-        <View>
-          <Text style={{ fontWeight: "bold",fontSize:17 }}>{item.headline}: </Text>
-          <Text numberOfLines={2} >
-            {item.abstract}
-          </Text>
-          <Text numberOfLines={1}>author: {item?.author}</Text>
-        </View>     
-      </View>
+        <View
+          style={{
+            flexDirection: "row",
+            borderTopColor: "#aaa",
+            borderWidth: 1,
+            height: 150,
+          }}
+        >
+          <View>
+            <Image
+              style={{
+                width: 150,
+                height: 150,
+                resizeMode: "contain",
+                borderColor: "#fff",
+              }}
+              source={{ uri: item?.urlToImage }}
+            />
+          </View>
+          <ScrollView style={{ marginLeft: 15 }}>
+            <Text numberOfLines={2} style={{ fontWeight: "bold" }}>
+              {item.title}
+            </Text>
+            <Text
+              numberOfLines={3}
+              style={{ fontSize: 13, width: 200, color: "#aaa" }}
+            >
+              {item?.description}
+            </Text>
+          </ScrollView>
+        </View>
+      </Pressable>
     );
   };
   const loadder = () => {
@@ -152,7 +188,7 @@ const CreateFlatList = () => {
     );
   };
   const loadMoreItem = () => {
-    setCurrentPage(Currentpage + 10);
+    setCurrentPage(Currentpage + 4);
   };
   return (
     <FlatList
