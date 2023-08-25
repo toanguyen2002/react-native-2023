@@ -37,10 +37,8 @@ const HomeSCreen = () => {
   // console.log("cart: " + cart);
   useEffect(() => {
     const getAllProduct = async () => {
-      const respone = await axios.get(
-        `https://api.escuelajs.co/api/v1/products?offset=0&limit=20`
-      );
-      setproducts(respone.data);
+      const respone = await axios.get(`https://dummyjson.com/products`);
+      setproducts(respone.data.products);
       // console.log(respone);
     };
     getAllProduct();
@@ -279,7 +277,7 @@ const HomeSCreen = () => {
           <Ionicons name="ios-mic" size={24} color="black" />
           <Pressable
             style={{ marginLeft: 10 }}
-            onPress={() => navigator.navigate("")}
+            onPress={() => navigator.navigate("CartScreen")}
           >
             <AntDesign name="shoppingcart" size={24} color="black" />
           </Pressable>
@@ -307,7 +305,7 @@ const HomeSCreen = () => {
         >
           {list.map((item, index) => (
             <Pressable
-              key={item.index}
+              key={index}
               style={{
                 justifyContent: "center",
                 alignItems: "center",
@@ -390,7 +388,7 @@ const HomeSCreen = () => {
         <ScrollView horizontal showsHorizontalScrollIndicator={false}>
           {offers.map((item, index) => (
             <Pressable
-              key={item.key}
+              key={index}
               style={{
                 alignItems: "center",
                 justifyContent: "center",
@@ -475,26 +473,28 @@ const HomeSCreen = () => {
                   price: item?.price,
                   //     image: item?.image,
                   carouselImages: item?.images,
-                  //     color: item?.color,
+                  stock: item?.stock,
                   //     size: item?.size,
                 })
               }
             >
-              <Text>{item?.id}</Text>
               {/* {item?.images.map((item, index) => ( */}
               <Image
                 key={index}
                 style={{
-                  width: 140,
-                  height: 140,
+                  width: 130,
+                  height: 130,
                   alignItems: "center",
-                  resizeMode: "contain",
+                  // resizeMode: "contain",
                 }}
                 source={{ uri: item?.images[0] }}
               />
               {/*  ))} */}
+              <Text numberOfLines={1} style={{ width: 140 }}>
+                {item?.title}
+              </Text>
               <Text numberOfLines={1} style={{ width: 150, marginTop: 10 }}>
-                {item.title}
+                {item.description}
               </Text>
               <View
                 style={{
@@ -505,9 +505,9 @@ const HomeSCreen = () => {
                 <Text style={{ fontWeight: "bold", fontSize: 13 }}>
                   {item?.price}
                 </Text>
-                {/* <Text style={{ color: "#FFC72C", fontWeight: "bold" }}>
-                  {item?.rating?.rate} ratings
-                </Text> */}
+                <Text style={{ color: "#FFC72C", fontWeight: "bold" }}>
+                  {item?.rating} ratings
+                </Text>
               </View>
               <Pressable
                 style={{
@@ -516,6 +516,7 @@ const HomeSCreen = () => {
                   justifyContent: "center",
                   alignItems: "center",
                   borderRadius: 20,
+                  width: 140,
                 }}
                 onPress={() => addItemToCart(item)}
               >

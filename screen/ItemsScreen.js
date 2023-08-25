@@ -25,16 +25,9 @@ const ItemsScreen = () => {
   const cart = useSelector((state) => state.cart.cart);
   const addItemToCart = (item) => {
     dispacth(addToCart(item));
-    console.log(item);
-    console.log(cart);
+    // console.log(item);
+    console.log(router?.params.stock);
   };
-  const increaseNum = () => {
-    setNum(num + 1);
-  };
-  const preNum = () => {
-    setNum(num <= 0 ? num : num - 1);
-  };
-
   const { width } = Dimensions.get("window");
   return (
     <ScrollView style={{ marginTop: 33 }} showsVerticalScrollIndicator={false}>
@@ -104,27 +97,28 @@ const ItemsScreen = () => {
                 flexDirection: "row",
               }}
             >
-              <View
-                style={{
-                  width: 50,
-                  height: 50,
-                  borderRadius: 30,
-                  backgroundColor: "red",
-                  justifyContent: "center",
-                  alignItems: "center",
-                }}
-              >
-                <Text
+              {router.params?.offer ? (
+                <View
                   style={{
-                    color: "white",
-                    fontWeight: "bold",
-                    textAlign: "center",
+                    width: 50,
+                    height: 50,
+                    borderRadius: 30,
+                    backgroundColor: "red",
+                    justifyContent: "center",
+                    alignItems: "center",
                   }}
                 >
-                  {router.params?.offer}
-                </Text>
-              </View>
-
+                  <Text
+                    style={{
+                      color: "white",
+                      fontWeight: "bold",
+                      textAlign: "center",
+                    }}
+                  >
+                    {router.params?.offer}
+                  </Text>
+                </View>
+              ) : null}
               <View
                 style={{
                   width: 50,
@@ -230,7 +224,11 @@ const ItemsScreen = () => {
           padding: 8,
         }}
       >
-        <Text style={{ color: "#33FF33", fontWeight: "bold" }}>Còn Hàng</Text>
+        {router.params?.stock > 0 ? (
+          <Text style={{ color: "#33FF33", fontWeight: "bold" }}>Còn Hàng</Text>
+        ) : (
+          <Text style={{ color: "#FF0000", fontWeight: "bold" }}>Hết Hàng</Text>
+        )}
       </View>
       <Pressable
         style={{

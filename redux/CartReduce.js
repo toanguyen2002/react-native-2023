@@ -16,7 +16,10 @@ export const CartReduce = createSlice({
     },
     removeFromCart: (state, action) => {
       // lay item khac voiw id truyen vao
-      state.cart.filter((item) => item.id != action.payload.id);
+      const removeItem = state.cart.filter(
+        (item) => item.id !== action.payload.id
+      );
+      state.cart = removeItem;
     },
     upItem: (state, action) => {
       const checkItem = state.cart.find(
@@ -30,8 +33,12 @@ export const CartReduce = createSlice({
       );
       if (checkItem.quantity >= 1) {
         checkItem.quantity--;
-      } else {
-        state.cart.filter((item) => item.id != checkItem.id);
+      }
+      if (checkItem.quantity === 0) {
+        const removeItem = state.cart.filter(
+          (item) => item.id !== action.payload.id
+        );
+        state.cart = removeItem;
       }
     },
     removeAllCart: (state) => {
