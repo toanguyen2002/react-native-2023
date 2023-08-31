@@ -5,7 +5,7 @@ const crypto = require("crypto");
 const nodemailer = require("nodemailer");
 
 const app = express();
-const port = 8081;
+const port = 8082;
 const cors = require("cors");
 app.use(cors());
 
@@ -70,12 +70,11 @@ app.post("/register", async (req, res) => {
 
     //check
 
-    const exsisting = await user.findOne({ email : email });
+    const exsisting = await user.findOne({ email: email });
     if (exsisting) {
       return res.status(400).json({ message: "User is already exsist" });
     }
-    const createNewuser = new 
-    ({ name, email, password });
+    const createNewuser = new { name, email, password }();
     //generation token
     createNewuser.verificationtoken = crypto.randomBytes(20).toString("hex");
 

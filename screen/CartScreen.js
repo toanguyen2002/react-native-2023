@@ -1,5 +1,6 @@
 import {
   Animated,
+  Dimensions,
   Image,
   Pressable,
   ScrollView,
@@ -10,10 +11,12 @@ import {
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { AntDesign } from "@expo/vector-icons";
-import { downItem, upItem } from "../redux/CartReduce";
-import { useNavigation } from "@react-navigation/native";
+import { downItem, removeFromCart, upItem } from "../redux/CartReduce";
+import { useNavigation, useRoute } from "@react-navigation/native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
+import { MaterialIcons } from "@expo/vector-icons";
 const CartScreen = () => {
+  const router = useRoute();
   const cart = useSelector((state) => state.cart.cart);
   const dispath = useDispatch();
   const deCripItem = (item) => {
@@ -21,6 +24,10 @@ const CartScreen = () => {
   };
   const upCountItem = (item) => {
     dispath(upItem(item));
+  };
+  const removeItem = (item) => {
+    dispath(removeFromCart(item));
+    console.log("click");
   };
   const navigate = useNavigation();
   const total = cart
@@ -50,6 +57,9 @@ const CartScreen = () => {
           key={index}
         >
           <View style={{ flexDirection: "row" }}>
+            <Pressable style={{ left: 365 }} onPress={() => removeItem(item)}>
+              <MaterialIcons name="highlight-remove" size={24} color="black" />
+            </Pressable>
             <Image
               style={{ width: 130, height: 130, resizeMode: "contain" }}
               source={{ uri: item?.thumbnail }}
@@ -120,30 +130,45 @@ const CartScreen = () => {
             <Text>Tổng số tiền phải trả là: {total}$</Text>
             <View style={{ flexDirection: "row" }}>
               <Text style={{ fontSize: 10 }}>Địa Chỉ Giao Hàng: </Text>
-              <Text
-                style={{
-                  textDecorationLine: "underline",
-                  fontWeight: "bold",
-                  color: "#770000",
-                  fontSize: 10,
-                }}
-              >
-                Nguyễn Văn Bảo - Phường 4 - Gò Vấp
-              </Text>
+              {router.params?.diachi ? (
+                <Text
+                  style={{
+                    textDecorationLine: "underline",
+                    fontWeight: "bold",
+                    color: "#770000",
+                    fontSize: 10,
+                  }}
+                >
+                  {router.params?.diachi}
+                </Text>
+              ) : (
+                <Text
+                  style={{
+                    textDecorationLine: "underline",
+                    fontWeight: "bold",
+                    color: "#770000",
+                    fontSize: 10,
+                  }}
+                >
+                  Nguyễn Văn Bảo - Phường 4 - Gò Vấp
+                </Text>
+              )}
             </View>
             <View>
               <Pressable
-                style={{
-                  height: "70",
-                  backgroundColor: "#fff",
-                  justifyContent: "center",
-                  alignItems: "center",
-                  marginVertical: 20,
-                  padding: 20,
-                  borderRadius: 30,
-                  borderColor: "#770000",
-                  borderWidth: 1,
-                }}
+                style={({ pressed }) => [
+                  {
+                    height: "70",
+                    backgroundColor: pressed ? "#aaa" : "#fff",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    marginVertical: 20,
+                    padding: 20,
+                    borderRadius: 30,
+                    borderColor: "#770000",
+                    borderWidth: 1,
+                  },
+                ]}
               >
                 <Text style={{ color: "#770000" }}>Thanh Toán Ngay</Text>
               </Pressable>
@@ -152,24 +177,18 @@ const CartScreen = () => {
               <Pressable
                 onPressIn={fadeIn}
                 onPressOut={fadeOut}
-                style={{
-                  height: "5r0",
-                  backgroundColor: "#20BCFA",
-                  justifyContent: "center",
-                  alignItems: "center",
-                  marginVertical: 0,
-                  padding: 20,
-                  borderRadius: 30,
-                }}
+                style={({ pressed }) => [
+                  {
+                    backgroundColor: pressed ? "#D3D3D3" : "#778899",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    marginVertical: 0,
+                    padding: 20,
+                    borderRadius: 30,
+                  },
+                ]}
+                onPress={() => navigate.navigate("AddressScreen")}
               >
-                {/* <Animated.View
-              style={{
-                opacity: animated,
-                backgroundColor: "red",
-                padding: 50,
-                borderRadius: 20,
-              }}
-            ></Animated.View> */}
                 <Text style={{ color: "white" }}>
                   Thay Đổi Địa Chỉ Giao Hàng
                 </Text>

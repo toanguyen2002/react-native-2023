@@ -9,7 +9,7 @@ import {
   TextInput,
   View,
 } from "react-native";
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useCallback, useEffect, useReducer, useState } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { Ionicons } from "@expo/vector-icons";
 import { Entypo } from "@expo/vector-icons";
@@ -20,8 +20,9 @@ import DropDownPicker from "react-native-dropdown-picker";
 import { useDispatch, useSelector } from "react-redux";
 import { addToCart } from "../redux/CartReduce";
 import { AntDesign } from "@expo/vector-icons";
-
+// import { AudioRecorder, AudioUtils } from "react-native-audio";
 const HomeSCreen = () => {
+  const [record, setRecord] = useState(false);
   const [products, setproducts] = useState([]);
   const [items, setItems] = useState([
     { label: "Men's Clothing", value: "men's Clothing" },
@@ -33,8 +34,22 @@ const HomeSCreen = () => {
   const [open, setOpen] = useState(false);
   const navigator = useNavigation();
   const cart = useSelector((state) => state.cart.cart);
-  // const cart = useSelector((state) => state.cart.cart);
-  // console.log("cart: " + cart);
+  //
+  // const startRecord = async () => {
+  //   const audioPath = AudioUtils.DocumentDirectoryPath + "/test.aac";
+
+  //   try {
+  //     await AudioRecorder.prepareRecordingAtPath(audioPath, {
+  //       SampleRate: 22050,
+  //       Channels: 1,
+  //       AudioQuality: "Low",
+  //       AudioEncoding: "aac",
+  //     });
+  //     await AudioRecorder.startRecording();
+  //     setRecord(false);
+  //   } catch (error) {}
+  // };
+  //
   useEffect(() => {
     const getAllProduct = async () => {
       const respone = await axios.get(`https://dummyjson.com/products`);
@@ -222,17 +237,6 @@ const HomeSCreen = () => {
       size: "8GB RAM, 128GB Storage",
     },
   ];
-  // const loadderComponent = () => {
-  //   return isloading ? (
-  //     <View>
-  //       <ActivityIndicator
-  //         style={styles.loadderStyle}
-  //         size={"large"}
-  //         color="#aaa"
-  //       />
-  //     </View>
-  //   ) : null;
-  // };
   const dispacth = useDispatch();
   const addItemToCart = (item) => {
     dispacth(addToCart(item));
@@ -274,7 +278,10 @@ const HomeSCreen = () => {
               placeholder="Enter product you want"
             />
           </Pressable>
-          <Ionicons name="ios-mic" size={24} color="black" />
+          <Pressable>
+            <Ionicons name="ios-mic" size={24} color="black" />
+          </Pressable>
+
           <Pressable
             style={{ marginLeft: 10 }}
             onPress={() => navigator.navigate("CartScreen")}
@@ -474,7 +481,7 @@ const HomeSCreen = () => {
                   //     image: item?.image,
                   carouselImages: item?.images,
                   stock: item?.stock,
-                  //     size: item?.size,
+                  size: item?.brand,
                 })
               }
             >

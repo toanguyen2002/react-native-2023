@@ -1,14 +1,16 @@
-import { StyleSheet, Text, View } from 'react-native'
-import React from 'react'
+import { ScrollView, StyleSheet, Text, TextInput, View } from "react-native";
+import React from "react";
 
 const PayScreen = () => {
   return (
-    <View>
-      <Text>PayScreen</Text>
-    </View>
-  )
-}
+    <ScrollView>
+      <View>
+        <TextInput />
+      </View>
+    </ScrollView>
+  );
+};
 
-export default PayScreen
+export default PayScreen;
 
-const styles = StyleSheet.create({})
+const styles = StyleSheet.create({});

@@ -124,7 +124,7 @@ const CreateFlatList = () => {
   useEffect(() => {
     const getUsers = async () => {
       const respone = await axios.get(
-        `https://newsapi.org/v2/everything?domains=wsj.com&apiKey=fb4a9174ceae4a0a91d3d3919df8f538&pageSize={Currentpage}`
+        `https://newsapi.org/v2/everything?domains=wsj.com&apiKey=fb4a9174ceae4a0a91d3d3919df8f538&pageSize=${Currentpage}`
       );
 
       setUsers(respone.data.articles);

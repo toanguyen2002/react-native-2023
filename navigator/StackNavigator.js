@@ -8,7 +8,7 @@ import Main from "../screen/Main";
 import ItemsScreen from "../screen/ItemsScreen";
 import ItemNewScreen from "../screen/ItemNewScreen";
 import CartScreen from "../screen/CartScreen";
-
+import AddressScreen from "../screen/AddressScreen";
 const StackNavigator = () => {
   const Stack = createNativeStackNavigator();
 
@@ -44,6 +44,11 @@ const StackNavigator = () => {
           name="CartScreen"
           component={CartScreen}
           options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="AddressScreen"
+          component={AddressScreen}
+          options={{ presentation: "modal", headerShown: false }}
         />
       </Stack.Navigator>
     </NavigationContainer>

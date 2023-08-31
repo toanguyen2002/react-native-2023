@@ -25,6 +25,18 @@ const Logincreen = () => {
             uri: "https://laginza.com/uploads/originals/2022/11/3344-amazon-logo-rgb.jpg",
           }}
         />
+
+        <Image
+          style={{
+            width: 150,
+            height: 160,
+            resizeMode: "contain",
+            borderRadius: 100,
+          }}
+          source={{
+            uri: "https://staticfvvn.s3-ap-southeast-1.amazonaws.com/fv4uploads/uploads/users/le/9ro/i3r/avatar/thumb_356987957833475.jpg",
+          }}
+        />
       </View>
       <KeyboardAvoidingView>
         <View style={{ alignItems: "center" }}>
@@ -121,13 +133,11 @@ const styles = StyleSheet.create({
   ButtonStyle: {
     marginTop: 30,
     alignItems: "center",
-    backgroundColor: "yellow",
-    width: 150,
+    backgroundColor: "#FFCC33",
     height: 60,
     justifyContent: "center",
     borderRadius: 50,
-    marginLeft: 100,
-    fontSize: 30,
+    marginVertical: 10,
   },
   TextRow: {
     fontSize: 20,
