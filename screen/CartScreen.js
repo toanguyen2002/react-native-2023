@@ -8,7 +8,7 @@ import {
   Text,
   View,
 } from "react-native";
-import React from "react";
+import React, { useMemo } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { AntDesign } from "@expo/vector-icons";
 import { downItem, removeFromCart, upItem } from "../redux/CartReduce";
@@ -29,10 +29,16 @@ const CartScreen = () => {
     dispath(removeFromCart(item));
     console.log("click");
   };
+
   const navigate = useNavigation();
-  const total = cart
-    .map((item) => item.quantity * item.price)
-    .reduce((value, preValue) => value + preValue, 0);
+
+  const totalvalue = useMemo(() => {
+    const total = cart
+      .map((item) => item.quantity * item.price)
+      .reduce((value, preValue) => value + preValue, 0);
+    return total
+  }, [cart]
+  )
   const animated = new Animated.Value(1);
   const fadeIn = () => {
     Animated.timing(animated, {
@@ -127,7 +133,7 @@ const CartScreen = () => {
           </View>
         ) : (
           <View>
-            <Text>Tổng số tiền phải trả là: {total}$</Text>
+            <Text>Tổng số tiền phải trả là: {totalvalue}$</Text>
             <View style={{ flexDirection: "row" }}>
               <Text style={{ fontSize: 10 }}>Địa Chỉ Giao Hàng: </Text>
               {router.params?.diachi ? (

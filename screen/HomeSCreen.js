@@ -1,7 +1,10 @@
 import {
   ActivityIndicator,
+  Dimensions,
+  DrawerLayoutAndroid,
   FlatList,
   Image,
+  Modal,
   Pressable,
   ScrollView,
   StyleSheet,
@@ -9,7 +12,7 @@ import {
   TextInput,
   View,
 } from "react-native";
-import React, { useCallback, useEffect, useReducer, useState } from "react";
+import React, { useCallback, useEffect, useReducer, useRef, useState } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { Ionicons } from "@expo/vector-icons";
 import { Entypo } from "@expo/vector-icons";
@@ -20,7 +23,8 @@ import DropDownPicker from "react-native-dropdown-picker";
 import { useDispatch, useSelector } from "react-redux";
 import { addToCart } from "../redux/CartReduce";
 import { AntDesign } from "@expo/vector-icons";
-// import { AudioRecorder, AudioUtils } from "react-native-audio";
+import ModalProduct from "../toolBuild/ModalProduct";
+import { FontAwesome } from '@expo/vector-icons';
 const HomeSCreen = () => {
   const [record, setRecord] = useState(false);
   const [products, setproducts] = useState([]);
@@ -30,37 +34,27 @@ const HomeSCreen = () => {
     { label: "electronics", value: "electronics" },
     { label: "Women's Clothing", value: "woman's Clothing" },
   ]);
-  const [category, setcategory] = useState("jewelry");
+  const [category, setcategory] = useState("");
   const [open, setOpen] = useState(false);
   const navigator = useNavigation();
   const cart = useSelector((state) => state.cart.cart);
-  //
-  // const startRecord = async () => {
-  //   const audioPath = AudioUtils.DocumentDirectoryPath + "/test.aac";
-
-  //   try {
-  //     await AudioRecorder.prepareRecordingAtPath(audioPath, {
-  //       SampleRate: 22050,
-  //       Channels: 1,
-  //       AudioQuality: "Low",
-  //       AudioEncoding: "aac",
-  //     });
-  //     await AudioRecorder.startRecording();
-  //     setRecord(false);
-  //   } catch (error) {}
-  // };
-  //
+  const [visibleDetail, setVisibleDetail] = useState(false)
+  const [payproduct, setPayproduct] = useState(null)
+  const [search, setSearch] = useState('')
   useEffect(() => {
     const getAllProduct = async () => {
-      const respone = await axios.get(`https://dummyjson.com/products`);
+      const respone = await axios.get(`https://dummyjson.com/products/search?q=${search}`);
       setproducts(respone.data.products);
       // console.log(respone);
     };
+
     getAllProduct();
-  }, []);
+
+  }, [search]);
   const onGenderOpen = useCallback(() => {
-    setCompanyOpen(false);
+    // setCompanyOpen(false);
   }, []);
+
   const list = [
     {
       key: "0",
@@ -237,14 +231,28 @@ const HomeSCreen = () => {
       size: "8GB RAM, 128GB Storage",
     },
   ];
+  const setopenModal = (item) => {
+    setPayproduct(item)
+    setVisibleDetail(true)
+  }
+
+  const setcolorModal = () => {
+    setPayproduct(null)
+    setVisibleDetail(false)
+  }
+  useEffect(() => {
+    return (
+      setSearch(category)
+    )
+  }, [category])
   const dispacth = useDispatch();
   const addItemToCart = (item) => {
     dispacth(addToCart(item));
     console.log(cart);
   };
   return (
-    <SafeAreaView style={{ backgroundColor: "white" }}>
-      <ScrollView style={{ marginTop: -33 }}>
+    <View>
+      <View style={{ backgroundColor: "white" }}>
         <View
           style={{
             padding: 10,
@@ -274,7 +282,8 @@ const HomeSCreen = () => {
               style={{ paddingLeft: 10 }}
             />
             <TextInput
-              // style={{ backgroundColor: "#fff" }}
+              value={search}
+              onChangeText={(text) => setSearch(text)}
               placeholder="Enter product you want"
             />
           </Pressable>
@@ -305,146 +314,9 @@ const HomeSCreen = () => {
             color="black"
           />
         </Pressable>
-        <ScrollView
-          horizontal
-          showsHorizontalScrollIndicator={false}
-          style={{ backgroundColor: "white" }}
-        >
-          {list.map((item, index) => (
-            <Pressable
-              key={index}
-              style={{
-                justifyContent: "center",
-                alignItems: "center",
-                padding: 10,
-              }}
-            >
-              <Image
-                style={{ height: 50, width: 50, resizeMode: "contain" }}
-                source={{ uri: item.image }}
-              />
-              <Text
-                style={{
-                  marginTop: 10,
-                  fontSize: 12,
-                  textAlign: "center",
-                  fontWeight: 500,
-                }}
-              >
-                {item?.name}
-              </Text>
-            </Pressable>
-          ))}
-        </ScrollView>
-        <FlatList
-          data={images}
-          horizontal
-          pagingEnabled
-          showsHorizontalScrollIndicator={false}
-          automaticallyAdjustContentInsets
-          renderItem={({ item }) => (
-            <ScrollView showsHorizontalScrollIndicator={false}>
-              <Image
-                style={{ width: 392, height: 200, borderRadius: 30 }}
-                source={{ uri: item.url }}
-              />
-            </ScrollView>
-          )}
-          // keyExtractor={(item) => item.index}
-        />
         <View
           style={{
-            backgroundColor: "#C6E2FF",
-            alignItems: "center",
-            borderRadius: 10,
-          }}
-        >
-          <Text style={{ color: "#F4A460", fontSize: 30 }}>Top Deals</Text>
-        </View>
-        <View
-          style={{
-            flexDirection: "row",
-            alignItems: "center",
-            flexWrap: "wrap",
-          }}
-        >
-          {deals.map((item, index) => (
-            <Pressable key={index}>
-              <Image
-                style={{
-                  width: 180,
-                  height: 180,
-                  resizeMode: "contain",
-                  marginBottom: 5,
-                }}
-                source={{ uri: item?.image }}
-              />
-            </Pressable>
-          ))}
-        </View>
-        <Text
-          style={{
-            borderColor: "#D0D0D0",
-            borderWidth: 5,
-            height: 1,
-            marginTop: 15,
-            marginBottom: 15,
-          }}
-        />
-        <Text style={{ fontWeight: "600" }}>Deals today</Text>
-        <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-          {offers.map((item, index) => (
-            <Pressable
-              key={index}
-              style={{
-                alignItems: "center",
-                justifyContent: "center",
-                marginVertical: 15,
-              }}
-              // fb4a9174ceae4a0a91d3d3919df8f538
-              onPress={() =>
-                navigator.navigate("ItemsScreen", {
-                  key: item?.key,
-                  title: item?.title,
-                  offer: item?.offer,
-                  oldPrice: item?.oldPrice,
-                  price: item?.price,
-                  image: item?.image,
-                  carouselImages: item?.carouselImages,
-                  color: item?.color,
-                  size: item?.size,
-                })
-              }
-            >
-              <Image
-                style={{ width: 150, height: 150, resizeMode: "contain" }}
-                source={{ uri: item?.image }}
-              />
-              <Text style={{ textDecorationLine: "line-through" }}>
-                {item.oldPrice}$
-              </Text>
-              <Text>{item?.price}$</Text>
-              <Text
-                style={{
-                  backgroundColor: "red",
-                  paddingVertical: 5,
-                  width: 130,
-                  alignItems: "center",
-                  justifyContent: "center",
-                  textAlign: "center",
-                  marginTop: 10,
-                  borderRadius: 6,
-                  color: "white",
-                }}
-              >
-                {item?.offer}$
-              </Text>
-            </Pressable>
-          ))}
-        </ScrollView>
-        <View
-          style={{
-            width: "45%",
+            // width: "45%",
             marginHorizontal: 10,
             marginBottom: open ? 50 : 10,
           }}
@@ -462,80 +334,286 @@ const HomeSCreen = () => {
             setItems={setItems}
             setValue={setcategory}
             placeholder="choose category"
-            onOpen={onGenderOpen}
+            // onOpen={onGenderOpen}
             zIndex={300}
             zIndexInverse={1000}
+
           />
         </View>
-        <View style={{ flex: 1, flexDirection: "row", flexWrap: "wrap" }}>
-          {products.map((item, index) => (
-            <Pressable
-              style={{ marginHorizontal: 20, marginVertical: 25 }}
-              key={index}
-              onPress={() =>
-                navigator.navigate("ItemsScreen", {
-                  key: item?.id,
-                  title: item?.title,
-                  //     offer: item?.offer,
-                  price: item?.price,
-                  //     image: item?.image,
-                  carouselImages: item?.images,
-                  stock: item?.stock,
-                  size: item?.brand,
-                })
-              }
-            >
-              {/* {item?.images.map((item, index) => ( */}
-              <Image
+        <ScrollView style={{ marginTop: 0 }}>
+
+          <ScrollView
+            horizontal
+            showsHorizontalScrollIndicator={false}
+            style={{ backgroundColor: "white" }}
+          >
+            {list.map((item, index) => (
+              <Pressable
                 key={index}
                 style={{
-                  width: 130,
-                  height: 130,
-                  alignItems: "center",
-                  // resizeMode: "contain",
-                }}
-                source={{ uri: item?.images[0] }}
-              />
-              {/*  ))} */}
-              <Text numberOfLines={1} style={{ width: 140 }}>
-                {item?.title}
-              </Text>
-              <Text numberOfLines={1} style={{ width: 150, marginTop: 10 }}>
-                {item.description}
-              </Text>
-              <View
-                style={{
-                  flexDirection: "row",
-                  justifyContent: "space-between",
-                }}
-              >
-                <Text style={{ fontWeight: "bold", fontSize: 13 }}>
-                  {item?.price}
-                </Text>
-                <Text style={{ color: "#FFC72C", fontWeight: "bold" }}>
-                  {item?.rating} ratings
-                </Text>
-              </View>
-              <Pressable
-                style={{
-                  backgroundColor: "#FFC72C",
-                  padding: 10,
                   justifyContent: "center",
                   alignItems: "center",
-                  borderRadius: 20,
-                  width: 140,
+                  padding: 10,
                 }}
-                onPress={() => addItemToCart(item)}
               >
-                <Text style={{ textShadowColor: 2, color: "brown" }}>
-                  Add To Cart
+                <Image
+                  style={{ height: 50, width: 50, resizeMode: "contain" }}
+                  source={{ uri: item.image }}
+                />
+                <Text
+                  style={{
+                    marginTop: 10,
+                    fontSize: 12,
+                    textAlign: "center",
+                    fontWeight: 500,
+                  }}
+                >
+                  {item?.name}
                 </Text>
               </Pressable>
-            </Pressable>
-          ))}
+            ))}
+          </ScrollView>
+
+          <FlatList
+            data={images}
+            horizontal
+            pagingEnabled
+            showsHorizontalScrollIndicator={false}
+            automaticallyAdjustContentInsets
+            renderItem={({ item }) => (
+              <ScrollView showsHorizontalScrollIndicator={false}>
+                <Image
+                  style={{ width: 392, height: 200, borderRadius: 30 }}
+                  source={{ uri: item.url }}
+                />
+              </ScrollView>
+            )}
+
+          />
+          <View
+            style={{
+              backgroundColor: "#C6E2FF",
+              alignItems: "center",
+              borderRadius: 10,
+            }}
+          >
+            <Text style={{ color: "#F4A460", fontSize: 30 }}>Top Deals</Text>
+          </View>
+          <View
+            style={{
+              flexDirection: "row",
+              alignItems: "center",
+              flexWrap: "wrap",
+            }}
+          >
+            {deals.map((item, index) => (
+              <Pressable key={index}>
+                <Image
+                  style={{
+                    width: 180,
+                    height: 180,
+                    resizeMode: "contain",
+                    marginBottom: 5,
+                  }}
+                  source={{ uri: item?.image }}
+                />
+              </Pressable>
+            ))}
+          </View>
+          <Text
+            style={{
+              borderColor: "#D0D0D0",
+              borderWidth: 5,
+              height: 1,
+              marginTop: 15,
+              marginBottom: 15,
+            }}
+          />
+          <Text style={{ fontWeight: "600" }}>Deals today</Text>
+          <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+            {offers.map((item, index) => (
+              <Pressable
+                key={index}
+                style={{
+                  alignItems: "center",
+                  justifyContent: "center",
+                  marginVertical: 15,
+                }}
+                // fb4a9174ceae4a0a91d3d3919df8f538
+                onPress={() =>
+                  navigator.navigate("ItemsScreen", {
+                    key: item?.key,
+                    title: item?.title,
+                    offer: item?.offer,
+                    oldPrice: item?.oldPrice,
+                    price: item?.price,
+                    image: item?.image,
+                    carouselImages: item?.carouselImages,
+                    color: item?.color,
+                    size: item?.size,
+                  })
+                }
+              >
+                <Image
+                  style={{ width: 150, height: 150, resizeMode: "contain" }}
+                  source={{ uri: item?.image }}
+                />
+                <Text style={{ textDecorationLine: "line-through" }}>
+                  {item.oldPrice}$
+                </Text>
+                <Text>{item?.price}$</Text>
+                <Text
+                  style={{
+                    backgroundColor: "red",
+                    paddingVertical: 5,
+                    width: 130,
+                    alignItems: "center",
+                    justifyContent: "center",
+                    textAlign: "center",
+                    marginTop: 10,
+                    borderRadius: 6,
+                    color: "white",
+                  }}
+                >
+                  {item?.offer}$
+                </Text>
+              </Pressable>
+            ))}
+
+          </ScrollView>
+
+          <View style={{ flex: 1, flexDirection: "row", flexWrap: "wrap" }}>
+            {products.map((item, index) => (
+              <Pressable
+                style={{ marginHorizontal: 20, marginVertical: 25 }}
+                key={index}
+                onPress={() =>
+                  navigator.navigate("ItemsScreen", {
+                    key: item?.id,
+                    title: item?.title,
+                    //     offer: item?.offer,
+                    price: item?.price,
+                    //     image: item?.image,
+                    carouselImages: item?.images,
+                    stock: item?.stock,
+                    size: item?.brand,
+                  })
+                }
+              >
+                {/* {item?.images.map((item, index) => ( */}
+                <Image
+                  key={index}
+                  style={{
+                    width: 130,
+                    height: 130,
+                    alignItems: "center",
+                    // resizeMode: "contain",
+                  }}
+                  source={{ uri: item?.images[0] }}
+                />
+
+                {/*  ))} */}
+                <Text numberOfLines={1} style={{ width: 140 }}>
+                  {item?.title}
+                </Text>
+                <Text numberOfLines={1} style={{ width: 150, marginTop: 10 }}>
+                  {item.description}
+                </Text>
+                <View
+                  style={{
+                    flexDirection: "row",
+                    justifyContent: "space-between",
+                  }}
+                >
+                  <Text style={{ fontWeight: "bold", fontSize: 13 }}>
+                    {item?.price}
+                  </Text>
+                  <Text style={{ color: "#FFC72C", fontWeight: "bold" }}>
+                    {item?.rating} ratings
+                  </Text>
+                </View>
+                <View>
+                  <Pressable
+                    style={{
+                      backgroundColor: "#FFC72C",
+                      padding: 10,
+                      justifyContent: "center",
+                      alignItems: "center",
+                      borderRadius: 20,
+                      width: 140,
+                    }}
+                    onPress={() => addItemToCart(item)}
+                  >
+                    <Text style={{ textShadowColor: 2, color: "brown" }}>
+                      Add To Cart
+                    </Text>
+                  </Pressable>
+                  <Pressable
+                    style={{
+                      marginVertical: 5,
+                      backgroundColor: "#fff",
+                      padding: 13,
+                      justifyContent: "center",
+                      alignItems: "center",
+                      borderRadius: 20,
+                      width: 140,
+                      borderWidth: 1,
+                      borderColor: '#C41E3A'
+                    }}
+                    onPress={() => setopenModal(item)}
+                  >
+                    <Text style={{ fontSize: 15, color: '#C0C0C0' }}>Buy Now</Text>
+                  </Pressable>
+                </View>
+              </Pressable>
+            ))}
+          </View>
+        </ScrollView >
+
+      </View >
+
+      <Modal
+        animationType="slide"
+        transparent={true}
+        visible={visibleDetail}
+        style={{ bottom: 0 }}
+      >
+        <View style={{
+          marginTop: 290,
+          backgroundColor: '#aaa',
+          alignItems: 'center',
+          justifyContent: 'center', padding: 10
+        }}>
+          <Pressable
+            style={{
+              position: 'absolute',
+              right: 0,
+              top: 0
+            }}
+            onPress={setcolorModal}>
+            <FontAwesome name="remove" size={40} color="black" />
+          </Pressable>
+          {payproduct &&
+            <SafeAreaView>
+              <View >
+                <Text style={{ color: 'white', textAlign: 'center' }}>{payproduct?.title}</Text>
+              </View>
+              <View style={{ flexDirection: 'row', padding: 5 }}>
+                <View><Image style={{ width: 150, height: 150, resizeMode: 'contain', marginRight: 10 }} source={{ uri: payproduct?.images[0] }} /></View>
+                <View>
+                  <Text >Sản Phẩm: {payproduct?.title}</Text>
+                  <Text>Giá bán: {payproduct?.price}$</Text>
+                  <Text>Số Lượng Sản Phẩm : {payproduct?.stock}</Text>
+                  <Text style={{ textAlign: 'center', marginVertical: 20, backgroundColor: '#71BC68', padding: 10 }}>Mua Ngay</Text>
+                </View>
+              </View>
+            </SafeAreaView>
+          }
         </View>
-      </ScrollView>
-    </SafeAreaView>
+      </Modal>
+    </View>
+
+
   );
 };
 

@@ -6,12 +6,20 @@ import {
   Image,
   ScrollView,
   Pressable,
+  DrawerLayoutAndroid,
 } from "react-native";
-import React from "react";
+import React, { useRef } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { MaterialIcons } from "@expo/vector-icons";
 import { AntDesign } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
+import { FontAwesome } from '@expo/vector-icons';
+import { Entypo } from '@expo/vector-icons';
+import { EvilIcons } from '@expo/vector-icons';
+import { MaterialCommunityIcons } from '@expo/vector-icons';
+import { Ionicons } from '@expo/vector-icons';
+import { Feather } from '@expo/vector-icons';
+import { SimpleLineIcons } from '@expo/vector-icons';
 const ProfileScreen = () => {
   const deals = [
     {
@@ -79,14 +87,208 @@ const ProfileScreen = () => {
     },
   ];
   const navigator = useNavigation();
-  return (
+  const draw = useRef(null)
+  const Naview = () => (
     <ScrollView>
+      <Text style={{ backgroundColor: '#aaa' }}>Tài Khoản</Text>
+      <View>
+        <View style={{ borderTopWidth: 1, borderColor: "#aaa" }}>
+          <Pressable style={({ pressed }) => [
+            {
+              flexDirection: 'row',
+              padding: 10,
+              backgroundColor: pressed ? "#aaa" : "#fff"
+            }
+
+          ]}>
+            <AntDesign name="user" size={29} color="black" />
+            <Text style={{ fontSize: 15, marginLeft: 10 }}>Tài khoản vào bảo mật</Text>
+          </Pressable>
+        </View>
+      </View>
+      <View>
+        <View style={{ borderTopWidth: 1, borderColor: "#aaa" }}>
+          <Pressable style={({ pressed }) => [
+            {
+              flexDirection: 'row',
+              padding: 10,
+              backgroundColor: pressed ? "#aaa" : "#fff"
+            }
+
+          ]}>
+            <EvilIcons name="location" size={29} color="black" />
+            <Text style={{ fontSize: 15, marginLeft: 10 }}>Địa Chỉ</Text>
+          </Pressable>
+        </View>
+      </View>
+      <View>
+        <View style={{ borderTopWidth: 1, borderColor: "#aaa" }}>
+          <Pressable style={({ pressed }) => [
+            {
+              flexDirection: 'row',
+              padding: 10,
+              backgroundColor: pressed ? "#aaa" : "#fff"
+            }
+
+          ]}>
+            <MaterialCommunityIcons name="account-alert-outline" size={29} color="black" />
+            <Text style={{ fontSize: 15, marginLeft: 10 }}>Tài Khoản / Thẻ Ngân Hàng</Text>
+          </Pressable>
+        </View>
+      </View>
+      <Text style={{ backgroundColor: '#aaa' }}>Cài Đặt</Text>
+      <View>
+        <View style={{ borderTopWidth: 1, borderColor: "#aaa" }}>
+          <Pressable style={({ pressed }) => [
+            {
+              flexDirection: 'row',
+              padding: 10,
+              backgroundColor: pressed ? "#aaa" : "#fff"
+            }
+
+          ]}>
+            <Ionicons name="md-settings-outline" size={29} color="black" />
+            <Text style={{ fontSize: 15, marginLeft: 10 }}>Cài Đặt Chat</Text>
+          </Pressable>
+        </View>
+      </View>
+
+      <View>
+        <View style={{ borderTopWidth: 1, borderColor: "#aaa" }}>
+          <Pressable style={({ pressed }) => [
+            {
+              flexDirection: 'row',
+              padding: 10,
+              backgroundColor: pressed ? "#aaa" : "#fff"
+            }
+
+          ]}>
+            <Entypo name="notification" size={24} color="black" />
+            <Text style={{ fontSize: 15, marginLeft: 10 }}>Cài Đặt Thông Báo</Text>
+          </Pressable>
+        </View>
+      </View>
+      <View>
+        <View style={{ borderTopWidth: 1, borderColor: "#aaa" }}>
+          <Pressable style={({ pressed }) => [
+            {
+              flexDirection: 'row',
+              padding: 10,
+              backgroundColor: pressed ? "#aaa" : "#fff"
+            }
+
+          ]}>
+            <AntDesign name="meh" size={29} color="black" />
+            <Text style={{ fontSize: 15, marginLeft: 10 }}>Cài Đặt Riêng Tư</Text>
+          </Pressable>
+        </View>
+      </View>
+      <View>
+        <View style={{ borderTopWidth: 1, borderColor: "#aaa" }}>
+          <Pressable style={({ pressed }) => [
+            {
+              flexDirection: 'row',
+              padding: 10,
+              backgroundColor: pressed ? "#aaa" : "#fff"
+            }
+
+          ]}>
+            <Feather name="user-x" size={29} color="black" />
+            <Text style={{ fontSize: 15, marginLeft: 10 }}>Người Dùng Đã Bị Chặn</Text>
+          </Pressable>
+        </View>
+      </View>
+      <View>
+        <View style={{ borderTopWidth: 1, borderColor: "#aaa" }}>
+          <Pressable style={({ pressed }) => [
+            {
+              flexDirection: 'row',
+              padding: 10,
+              backgroundColor: pressed ? "#aaa" : "#fff"
+            }
+
+          ]}>
+            <Ionicons name="language-outline" size={29} color="black" />
+            <Text style={{ fontSize: 15, marginLeft: 10 }}>Ngôn Ngữ / language</Text>
+          </Pressable>
+        </View>
+      </View>
+      <Text style={{ backgroundColor: '#aaa' }}>Hỗ Trợ</Text>
+      <View>
+        <View style={{ borderTopWidth: 1, borderColor: "#aaa" }}>
+          <Pressable style={({ pressed }) => [
+            {
+              flexDirection: 'row',
+              padding: 10,
+              backgroundColor: pressed ? "#aaa" : "#fff"
+            }
+
+          ]}>
+            <SimpleLineIcons name="support" size={29} color="black" />
+            <Text style={{ fontSize: 15, marginLeft: 10 }}>Trung Tâm Hỗ Trợ</Text>
+          </Pressable>
+        </View>
+      </View>
+      <View>
+        <View style={{ borderTopWidth: 1, borderColor: "#aaa" }}>
+          <Pressable style={({ pressed }) => [
+            {
+              flexDirection: 'row',
+              padding: 10,
+              backgroundColor: pressed ? "#aaa" : "#fff"
+            }
+
+          ]}>
+            <MaterialIcons name="public" size={29} color="black" />
+            <Text style={{ fontSize: 15, marginLeft: 10 }}>Tiêu Chuẩn Cộng Đồng</Text>
+          </Pressable>
+        </View>
+      </View>
+      <View>
+        <View style={{ borderTopWidth: 1, borderColor: "#aaa" }}>
+          <Pressable style={({ pressed }) => [
+            {
+              flexDirection: 'row',
+              padding: 10,
+              backgroundColor: pressed ? "#aaa" : "#fff"
+            }
+
+          ]}>
+            <MaterialIcons name="rule" size={29} color="black" />
+            <Text style={{ fontSize: 15, marginLeft: 10 }}>Điều Khoản</Text>
+          </Pressable>
+        </View>
+      </View>
+      <View>
+        <View style={{ borderTopWidth: 1, borderColor: "#aaa" }}>
+          <Pressable style={({ pressed }) => [
+            {
+              flexDirection: 'row',
+              padding: 10,
+              backgroundColor: pressed ? "#aaa" : "#fff"
+            }
+
+          ]}>
+            <Feather name="star" size={29} color="black" />
+            <Text style={{ fontSize: 15, marginLeft: 10 }}>Đánh Giá</Text>
+          </Pressable>
+        </View>
+      </View>
+    </ScrollView>
+  )
+  return (
+    <DrawerLayoutAndroid
+      ref={draw}
+      drawerWidth={300}
+      drawerPosition="right"
+      renderNavigationView={Naview}
+    >
       <View style={{ marginTop: -30 }}>
         <ImageBackground
           style={{ height: 150 }}
           resizeMode="cover"
           source={{
-            uri: "https://antimatter.vn/wp-content/uploads/2022/05/background-dep-mo-phong-nui-3d.jpg",
+            // uri: "https://antimatter.vn/wp-content/uploads/2022/05/background-dep-mo-phong-nui-3d.jpg",
           }}
         >
           <View style={{}}>
@@ -96,7 +298,7 @@ const ProfileScreen = () => {
                 width: 150,
                 borderRadius: 100,
                 position: "absolute",
-                top: 60,
+                top: 40,
                 left: 120,
                 resizeMode: "contain",
               }}
@@ -105,23 +307,34 @@ const ProfileScreen = () => {
               }}
             />
           </View>
+
         </ImageBackground>
         <Text
-              style={{
-                textAlign: "center",
-                fontSize: 17,
-                fontWeight: "bold",
-                marginTop:55,
-              }}
-            >
-              Nguyễn Quang Toán
-            </Text>
+          style={{
+            textAlign: "center",
+            fontSize: 17,
+            fontWeight: "bold",
+            marginTop: 45,
+          }}
+        >
+          Nguyễn Quang Toán
+        </Text>
       </View>
+      <Pressable onPress={() => draw.current.openDrawer()} style={{
+        position: 'absolute',
+        right: 10,
+        top: 10,
+        backgroundColor: '#fff'
+      }}>
+        <View >
+          <FontAwesome name="list" size={30} color="black" />
+        </View>
+      </Pressable>
       <ScrollView
         style={{
           marginTop: 5,
         }}
-      > 
+      >
         {deals.map((item, index) => (
           <Pressable
             key={item.key}
@@ -190,8 +403,8 @@ const ProfileScreen = () => {
           </Pressable>
         ))}
       </ScrollView>
-      
-    </ScrollView>
+
+    </DrawerLayoutAndroid>
   );
 };
 
