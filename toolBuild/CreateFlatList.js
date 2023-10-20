@@ -183,7 +183,7 @@ const CreateFlatList = () => {
   const loadder = () => {
     return (
       <View>
-        <ActivityIndicator style={styles.loadder} size="lager" color="#aaa" />
+        <ActivityIndicator style={styles.loadder} size="small" color="#aaa" />
       </View>
     );
   };
@@ -200,7 +200,6 @@ const CreateFlatList = () => {
     />
   );
 };
-
 export default CreateFlatList;
 
 const styles = StyleSheet.create({

@@ -1,4 +1,5 @@
 import {
+  Dimensions,
   Pressable,
   ScrollView,
   StyleSheet,
@@ -18,17 +19,25 @@ const AddressScreen = () => {
   const navigate = useNavigation();
   return (
     <ScrollView>
+      <View style={{ alignItems: 'center' }}><Text style={{ fontWeight: 'bold', fontSize: 16 }}>Thay Đổi Địa Chỉ Giao Hàng</Text></View>
       <View
         style={{
           flexDirection: "row",
           padding: 5,
           borderTopWidth: 1,
           borderColor: "#aaa",
-          marginTop: 40,
+          marginTop: 20,
+          justifyContent: 'center',
+          alignItems: 'center'
+
         }}
       >
-        <Text>Name: </Text>
-        <TextInput
+        <Text style={{ fontSize: 15 }}>Name: </Text>
+        <TextInput style={{
+          width: Dimensions.get('window').width,
+          height: 30,
+          marginHorizontal: 5
+        }}
           value={name}
           onChangeText={(e) => setName(e)}
           placeholder="Enter your Name"
@@ -41,11 +50,17 @@ const AddressScreen = () => {
           padding: 5,
           borderTopWidth: 1,
           borderColor: "#aaa",
-          marginTop: 10,
+          marginTop: 20,
+          justifyContent: 'center',
+          alignItems: 'center'
         }}
       >
-        <Text>LandMark: </Text>
-        <TextInput
+        <Text style={{ fontSize: 15 }}>LandMark: </Text>
+        <TextInput style={{
+          width: Dimensions.get('window').width,
+          height: 30,
+          marginHorizontal: 5
+        }}
           value={landmark}
           onChangeText={(e) => setLandmark(e)}
           placeholder="Enter your landMark"
@@ -58,11 +73,17 @@ const AddressScreen = () => {
           padding: 5,
           borderTopWidth: 1,
           borderColor: "#aaa",
-          marginTop: 10,
+          marginTop: 20,
+          justifyContent: 'center',
+          alignItems: 'center'
         }}
       >
-        <Text>Phone: </Text>
-        <TextInput
+        <Text style={{ fontSize: 15 }}>Phone: </Text>
+        <TextInput style={{
+          width: Dimensions.get('window').width,
+          height: 30,
+          marginHorizontal: 5
+        }}
           value={mobileNo}
           onChangeText={(e) => setmobileNo(e)}
           placeholder="Enter your Phone Number"
@@ -75,11 +96,17 @@ const AddressScreen = () => {
           padding: 5,
           borderTopWidth: 1,
           borderColor: "#aaa",
-          marginTop: 10,
+          marginTop: 20,
+          justifyContent: 'center',
+          alignItems: 'center'
         }}
       >
-        <Text>Stress: </Text>
-        <TextInput
+        <Text style={{ fontSize: 15 }}>Stress: </Text>
+        <TextInput style={{
+          width: Dimensions.get('window').width,
+          height: 30,
+          marginHorizontal: 5
+        }}
           value={stress}
           onChangeText={(e) => setStress(e)}
           placeholder="Enter your stress"
@@ -92,11 +119,17 @@ const AddressScreen = () => {
           padding: 5,
           borderTopWidth: 1,
           borderColor: "#aaa",
-          marginTop: 10,
+          marginTop: 20,
+          justifyContent: 'center',
+          alignItems: 'center'
         }}
       >
-        <Text>PostalCode: </Text>
-        <TextInput
+        <Text style={{ fontSize: 15 }}>PostalCode: </Text>
+        <TextInput style={{
+          width: Dimensions.get('window').width,
+          height: 30,
+          marginHorizontal: 5
+        }}
           value={postalCode}
           onChangeText={(e) => setPostalCode(e)}
           placeholder="Enter your postalCode"
@@ -115,19 +148,24 @@ const AddressScreen = () => {
             marginHorizontal: 20,
             backgroundColor: "#aaa",
             width: 140,
+            borderRadius: 10,
+            height: 50,
+            justifyContent: 'center'
           }}
         >
-          <Text style={{ fontSize: 20, textAlign: "center" }}>Đồng ý</Text>
+          <Text style={{ fontSize: 20, textAlign: "center", fontWeight: 'bold' }}>Đồng ý</Text>
         </Pressable>
         <Pressable
           style={{
             marginHorizontal: 20,
             backgroundColor: "#aaa",
             width: 140,
+            height: 50,
+            justifyContent: 'center'
           }}
           onPress={() => navigate.goBack()}
         >
-          <Text style={{ fontSize: 20, textAlign: "center" }}>Hủy</Text>
+          <Text style={{ fontSize: 20, textAlign: "center", fontWeight: 'bold' }}>Hủy</Text>
         </Pressable>
       </View>
     </ScrollView>

@@ -10,28 +10,52 @@ import {
 } from "react-native";
 import { Zocial } from "@expo/vector-icons";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
-import React from "react";
+import React, { useState } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useNavigation } from "@react-navigation/native";
 
 const Logincreen = () => {
   const navigator = useNavigation();
+  const datas = [
+    { username: 'admin', password: '12345' },
+    { username: 'admin1', password: '12345' },
+    { username: 'admin2', password: '12345' },
+    { username: 'admin3', password: '12345' }
+  ]
+  const [username, setUsername] = useState('admin')
+  const [password, setPassword] = useState('12345')
+  var error = ''
+  const checkUserNamePassWord = (d, u, p) => {
+    d.some((item, index) => {
+      if (item.username === u && item.password === p) {
+        navigator.navigate("main")
+        error = ''
+      } else {
+        error = 'user not exist'
+      }
+    })
+  }
   return (
     <SafeAreaView style={styles.container}>
       <View style={{ marginTop: 60 }}>
         <Image
-          style={{ width: 150, height: 60 }}
+          style={{
+            width: 100, height: 100, alignItems: 'center'
+            , justifyContent: 'center'
+          }}
           source={{
-            uri: "https://laginza.com/uploads/originals/2022/11/3344-amazon-logo-rgb.jpg",
+            uri: "https://www.logolynx.com/images/logolynx/a6/a671ef222a6e136f8fe7fd9cfc97e57b.png",
           }}
         />
 
         <Image
           style={{
-            width: 150,
-            height: 160,
+            width: 100,
+            height: 100,
             resizeMode: "contain",
             borderRadius: 100,
+            alignItems: 'center'
+            , justifyContent: 'center'
           }}
           source={{
             uri: "https://staticfvvn.s3-ap-southeast-1.amazonaws.com/fv4uploads/uploads/users/le/9ro/i3r/avatar/thumb_356987957833475.jpg",
@@ -62,7 +86,9 @@ const Logincreen = () => {
               size={24}
               color="black"
             />
-            <TextInput placeholder="Enter your Email" />
+            <TextInput placeholder="Enter your Email" value={username} onChangeText={setUsername
+            } />
+            <Text style={{ color: 'red', fontWeight: 'bold' }}>{error != null ? error : ''}</Text>
           </View>
         </View>
 
@@ -85,31 +111,27 @@ const Logincreen = () => {
               color="black"
               style={{ marginRight: 20 }}
             />
-            <TextInput placeholder="Enter your Password" />
+            <TextInput placeholder="Enter your Password" value={password} onChangeText={setPassword} />
           </View>
         </View>
 
         <View style={styles.TextRow}>
           <Text>Remember Me</Text>
-
           <Text
             style={{
               color: "blue",
-              marginLeft: 70,
             }}
           >
             Forgot Password?
           </Text>
         </View>
-
-        <View style={styles.ButtonStyle}>
-          <Pressable onPress={() => navigator.navigate("main")}>
-            <Text>Log In</Text>
-          </Pressable>
-        </View>
-
+        <Pressable onPress={() => checkUserNamePassWord(datas, username, password)}>
+          <View style={styles.ButtonStyle}>
+            <Text style={{ color: 'white', fontSize: 30, fontWeight: 'bold' }}>Log In</Text>
+          </View>
+        </Pressable>
         <Pressable onPress={() => navigator.navigate("RegisterScreen")}>
-          <Text style={{ marginLeft: 40 }}>Don't have an account? sign Up</Text>
+          <Text style={{ textAlign: 'center' }}>Don't have an account? sign Up</Text>
         </Pressable>
       </KeyboardAvoidingView>
     </SafeAreaView>
@@ -123,6 +145,7 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "white",
     alignItems: "center",
+    justifyContent: 'center'
   },
   TextStyle: {
     fontSize: 20,
@@ -142,5 +165,8 @@ const styles = StyleSheet.create({
   TextRow: {
     fontSize: 20,
     flexDirection: "row",
+    alignItems: 'center',
+    justifyContent: 'space-around',
+    marginTop: 10
   },
 });

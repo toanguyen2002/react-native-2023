@@ -8,6 +8,7 @@ export const CartReduce = createSlice({
   reducers: {
     addToCart: (state, action) => {
       const exitItem = state.cart.find((item) => item.id === action.payload.id);
+      console.log(exitItem);
       if (exitItem) {
         exitItem.quantity++;
       } else {

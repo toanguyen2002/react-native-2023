@@ -10,78 +10,39 @@ import {
   TextInput,
   View,
 } from "react-native";
-import React, { useState } from "react";
-import { useRoute } from "@react-navigation/native";
+import React, { useEffect, useState } from "react";
+import { useNavigation, useRoute } from "@react-navigation/native";
 import { Ionicons } from "@expo/vector-icons";
-import { Entypo } from "@expo/vector-icons";
-import { MaterialIcons } from "@expo/vector-icons";
 import { AntDesign } from "@expo/vector-icons";
 import { useDispatch, useSelector } from "react-redux";
 import { addToCart } from "../redux/CartReduce";
+import axios from "axios";
+import Search from "../component/Search";
 const ItemsScreen = () => {
+  const [conmments, setComments] = useState([])
   const [num, setNum] = useState(0);
   const router = useRoute();
   const dispacth = useDispatch();
   const cart = useSelector((state) => state.cart.cart);
   const addItemToCart = (item) => {
     dispacth(addToCart(item));
-    // console.log(item);
-    console.log(router?.params.stock);
+    console.log(item);
   };
+  const [numComment, setNumComment] = useState(5)
+  useEffect(() => {
+    const getAllcomments = async () => {
+      var respone = await axios.get(`https://dummyjson.com/comments?limit=${numComment}`)
+      setComments(respone.data['comments'])
+    }
+    getAllcomments()
+  }, [numComment])
+  const nav = useNavigation()
   const { width } = Dimensions.get("window");
   return (
     <ScrollView style={{ marginTop: 33 }} showsVerticalScrollIndicator={false}>
-      <View
-        style={{
-          padding: 10,
-          backgroundColor: "#00CED01",
-          flexDirection: "row",
-          alignItems: "center",
-          backgroundColor: "#33FFFF",
-        }}
-      >
-        <Pressable
-          style={{
-            flex: 1,
-            height: 38,
-            marginHorizontal: 7,
-            backgroundColor: "#fff",
-            gap: 10,
-            borderRadius: 5,
-            flexDirection: "row",
-            alignItems: "center",
-            justifyContent: "center",
-          }}
-        >
-          <Ionicons
-            name="search-outline"
-            size={24}
-            color="black"
-            style={{ paddingLeft: 10 }}
-          />
-          <TextInput
-            // style={{ backgroundColor: "#fff" }}
-            placeholder="Enter product you want"
-          />
-        </Pressable>
-        <Ionicons name="ios-mic" size={24} color="black" />
-      </View>
 
-      <Pressable
-        style={{
-          backgroundColor: "#99FFFF",
-          flexDirection: "row",
-        }}
-      >
-        <Entypo style={styles.ml2} name="location" size={24} color="black" />
-        <Text style={styles.ml2}>Nguyễn Văn Bảo - Phường 4 - Gò Vấp</Text>
-        <MaterialIcons
-          style={styles.ml2}
-          name="keyboard-arrow-down"
-          size={24}
-          color="black"
-        />
-      </Pressable>
+
+      <Search />
 
       <ScrollView horizontal showsHorizontalScrollIndicator={false}>
         {router.params?.carouselImages?.map((item, index) => (
@@ -90,6 +51,11 @@ const ItemsScreen = () => {
             source={{ uri: item }}
             key={index}
           >
+            <View>
+              <Pressable onPress={() => nav.goBack()}>
+                <Ionicons name="arrow-back" size={24} color="black" />
+              </Pressable>
+            </View>
             <View
               style={{
                 justifyContent: "space-between",
@@ -97,6 +63,7 @@ const ItemsScreen = () => {
                 flexDirection: "row",
               }}
             >
+
               {router.params?.offer ? (
                 <View
                   style={{
@@ -259,6 +226,30 @@ const ItemsScreen = () => {
       >
         <Text style={{ color: "#fff" }}>Add To Cart</Text>
       </Pressable>
+      {
+        conmments.map((value, index) => (
+          <View style={{ flex: 1, flexDirection: 'row', padding: 15, borderTopWidth: 1, borderTopColor: "#aaa" }} key={index}>
+            <Image
+              source={{ uri: 'https://scontent.fsgn5-8.fna.fbcdn.net/v/t39.30808-1/371480352_318218407258643_2078001501390582422_n.jpg?stp=dst-jpg_p160x160&_nc_cat=109&ccb=1-7&_nc_sid=fe8171&_nc_ohc=gL2ENGBhzYUAX8Rhlsl&_nc_ht=scontent.fsgn5-8.fna&cb_e2o_trans=t&oh=00_AfBZSbvyQ4D3dbJ_4MU9eWDdJmTO8NUotFEZDuPoz2ehyg&oe=650F23B6' }}
+              style={{ height: 50, width: 50, marginLeft: 5, marginRight: 10 }}
+            />
+            <View>
+              <View>
+                <Text>{value?.user?.username}: </Text>
+              </View>
+              <View>
+                <Text>{value?.body}</Text>
+              </View>
+            </View>
+          </View>
+        ))
+      }
+      <View style={{ borderColor: '#0000FF', borderWidth: 1, padding: 5, height: 50 }}>
+        <Pressable style={{ justifyContent: 'center', alignItems: 'center' }} onPress={() => { setNumComment(numComment + 5); }}>
+          <Text style={{ color: '#3300FF', textAlign: 'center' }}>More 5 comments <AntDesign name="arrowdown" size={17} color="blue" /> </Text>
+
+        </Pressable>
+      </View>
     </ScrollView>
   );
 };

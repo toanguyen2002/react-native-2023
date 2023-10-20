@@ -126,8 +126,8 @@ const CartScreen = () => {
                 marginVertical: 30,
               }}
             >
-              <Pressable onPress={() => navigate.goBack()}>
-                <Text style={{ color: "white" }}>Quay Lại Trang Chủ </Text>
+              <Pressable onPress={() => navigate.navigate('main')}>
+                <Text style={{ color: "white" }}>Quay Lại Trang Chủ</Text>
               </Pressable>
             </View>
           </View>
@@ -175,6 +175,7 @@ const CartScreen = () => {
                     borderWidth: 1,
                   },
                 ]}
+                onPress={() => navigate.navigate('payScreen')}
               >
                 <Text style={{ color: "#770000" }}>Thanh Toán Ngay</Text>
               </Pressable>

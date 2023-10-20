@@ -10,10 +10,11 @@ import { Ionicons } from "@expo/vector-icons";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import NewsScreen from "./NewsScreen";
 const Main = () => {
-  const Stack = createNativeStackNavigator();
   const Tab = createBottomTabNavigator();
   return (
-    <Tab.Navigator>
+    <Tab.Navigator screenOptions={{
+      headerShown: false
+    }}>
       <Tab.Screen
         options={{
           // tabBarLabel: "Home",
@@ -49,19 +50,6 @@ const Main = () => {
         component={NewsScreen}
         name="News"
       />
-      {/* <Tab.Screen
-        options={{
-          tabBarLabel: "Search",
-          tabBarIcon: ({ focused }) =>
-            focused ? (
-              <AntDesign name="search1" size={24} color="black" />
-            ) : (
-              <FontAwesome5 name="search" size={24} color="black" />
-            ),
-        }}
-        component={SearchScreen}
-        name="Search"
-      /> */}
       <Tab.Screen
         options={{
           tabBarLabel: "User",

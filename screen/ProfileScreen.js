@@ -6,8 +6,10 @@ import {
   Image,
   ScrollView,
   Pressable,
-  DrawerLayoutAndroid,
+  Dimensions,
+  // View,
 } from "react-native";
+
 import React, { useRef } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { MaterialIcons } from "@expo/vector-icons";
@@ -20,6 +22,9 @@ import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { Ionicons } from '@expo/vector-icons';
 import { Feather } from '@expo/vector-icons';
 import { SimpleLineIcons } from '@expo/vector-icons';
+import { FontAwesome5 } from '@expo/vector-icons';
+
+
 const ProfileScreen = () => {
   const deals = [
     {
@@ -97,7 +102,7 @@ const ProfileScreen = () => {
             {
               flexDirection: 'row',
               padding: 10,
-              backgroundColor: pressed ? "#aaa" : "#fff"
+              backgroundColor: pressed ? "#aaa" : "#000"
             }
 
           ]}>
@@ -277,134 +282,298 @@ const ProfileScreen = () => {
     </ScrollView>
   )
   return (
-    <DrawerLayoutAndroid
-      ref={draw}
-      drawerWidth={300}
-      drawerPosition="right"
-      renderNavigationView={Naview}
-    >
-      <View style={{ marginTop: -30 }}>
-        <ImageBackground
-          style={{ height: 150 }}
-          resizeMode="cover"
-          source={{
-            // uri: "https://antimatter.vn/wp-content/uploads/2022/05/background-dep-mo-phong-nui-3d.jpg",
-          }}
-        >
-          <View style={{}}>
-            <Image
-              style={{
-                height: 150,
-                width: 150,
-                borderRadius: 100,
-                position: "absolute",
-                top: 40,
-                left: 120,
-                resizeMode: "contain",
-              }}
-              source={{
-                uri: "https://scontent.fsgn5-9.fna.fbcdn.net/v/t39.30808-1/363393326_301194812294336_525599344610265081_n.jpg?stp=dst-jpg_p320x320&_nc_cat=102&ccb=1-7&_nc_sid=7206a8&_nc_ohc=8f96k5b-wigAX9i8squ&_nc_ht=scontent.fsgn5-9.fna&oh=00_AfBixBLzyNDID2WpEw60MjoYYOPN1hPe_AOTmzKhyvZRnQ&oe=64E228EC",
-              }}
-            />
+    <ScrollView>
+      <View style={{ position: 'relative', width: Dimensions.get('window').width, backgroundColor: '#FF4500', height: 100 }}>
+        <View style={{ flexDirection: 'row', position: 'absolute', top: 0, right: 0 }}>
+          <View style={{ borderTopWidth: 1, borderColor: "#aaa" }}>
+            <Pressable style={({ pressed }) => [
+              {
+                flexDirection: 'row',
+                padding: 10,
+                backgroundColor: pressed ? "#fff" : "#FF4500"
+              }
+
+            ]}>
+              <Ionicons name="md-settings-outline" size={29} color="black" />
+            </Pressable>
           </View>
+          <View style={{ borderTopWidth: 1, borderColor: "#FF4500" }}>
+            <Pressable style={({ pressed }) => [
+              {
+                flexDirection: 'row',
+                padding: 10,
+                backgroundColor: pressed ? "#fff" : "#FF4500"
+              }
 
-        </ImageBackground>
-        <Text
-          style={{
-            textAlign: "center",
-            fontSize: 17,
-            fontWeight: "bold",
-            marginTop: 45,
-          }}
-        >
-          Nguyễn Quang Toán
-        </Text>
-      </View>
-      <Pressable onPress={() => draw.current.openDrawer()} style={{
-        position: 'absolute',
-        right: 10,
-        top: 10,
-        backgroundColor: '#fff'
-      }}>
-        <View >
-          <FontAwesome name="list" size={30} color="black" />
+            ]}>
+              <AntDesign name="shoppingcart" size={29} color="black" />
+            </Pressable>
+          </View>
+          <View style={{ borderTopWidth: 1, borderColor: "#aaa", position: 'relative' }}>
+            <Pressable style={({ pressed }) => [
+              {
+                flexDirection: 'row',
+                padding: 10,
+                backgroundColor: pressed ? "#fff" : "#FF4500"
+              }
+
+            ]}>
+              <MaterialCommunityIcons name="chat-outline" size={29} color="black" />
+              <Text style={{ position: 'absolute', color: 'white', fontWeight: 'bold', backgroundColor: 'red', fontSize: 12, borderRadius: 100, alignContent: 'center', right: 0, top: 5, zIndex: 99999999 }}>99+</Text>
+            </Pressable>
+          </View>
         </View>
-      </Pressable>
-      <ScrollView
-        style={{
-          marginTop: 5,
-        }}
-      >
-        {deals.map((item, index) => (
-          <Pressable
-            key={item.key}
-            style={{
-              flexDirection: "row",
-              backgroundColor: "#CD853F",
-              borderBottomColor: "brown",
-              borderBottomWidth: 5,
-            }}
-          >
-            <View>
-              <Image
-                style={{
-                  width: 160,
-                  height: 150,
-                  marginTop: 5,
-                  resizeMode: "contain",
-                }}
-                source={{ uri: item.image }}
-              />
-              <View style={{ flexDirection: "row" }}>
-                <View style={{ flexDirection: "row" }}>
-                  <MaterialIcons
-                    name="messenger-outline"
-                    size={24}
-                    color="black"
-                  />
-                  <Text>43</Text>
-                </View>
-
-                <View style={{ flexDirection: "row", marginLeft: 15 }}>
-                  <AntDesign name="heart" size={24} color="black" />
-                  <Text>15</Text>
+        <View style={{ flexDirection: 'row', marginTop: 25 }}>
+          <Image source={require('../assets/imgMain.png')} style={{ width: 70, height: 70, borderRadius: 100 }} />
+          <View style={{ justifyContent: 'space-around' }}>
+            <Text style={{ fontSize: 12, fontWeight: 'bold', color: 'white' }}>Toán Nguyễn</Text>
+            <Text style={{ marginVertical: 4, fontSize: 12, backgroundColor: '#F0E68C', width: 150, textAlign: 'center', fontWeight: 'bold', borderRadius: 10, }}>Thành Viên Vàng</Text>
+            <View style={{ flexDirection: 'row' }}>
+              <View style={{ flexDirection: 'row' }}>
+                <Text style={{ fontSize: 10, fontWeight: 'bold' }}>Người Theo Dõi:</Text>
+                <Text style={{ fontSize: 10, fontWeight: 'bold', color: 'white' }}>0</Text>
+              </View>
+              <View style={{ flexDirection: 'row', marginHorizontal: 4, borderLeftWidth: 1, borderColor: 'black' }}>
+                <Text style={{ fontSize: 10, fontWeight: 'bold' }}>Đang Theo Dõi Theo Dõi:</Text>
+                <Text style={{ fontSize: 10, fontWeight: 'bold', color: 'white' }}>44</Text>
+              </View>
+            </View>
+          </View>
+        </View>
+      </View>
+      <View style={{ alignItems: 'center', justifyContent: 'center', backgroundColor: '#aaa', height: 100 }}>
+        <View style={{ width: Dimensions.get('window').width - 20, backgroundColor: 'black', flexDirection: 'row', padding: 10, borderRadius: 10, justifyContent: 'center' }}>
+          <SimpleLineIcons name="note" size={24} color="green" />
+          <Text style={{ fontSize: 13, color: 'white' }}>Thiết lập mật khẩu ngay để bảo vệ tài khoản <Text style={{ fontSize: 15, color: 'blue' }}>Thiết lập</Text> </Text>
+        </View>
+      </View>
+      <View style={{ padding: 10, flexDirection: 'row', alignItems: 'center', height: 40, backgroundColor: 'black' }}>
+        <MaterialCommunityIcons name="cellphone" size={24} color="green" />
+        <Text style={{ color: 'white', marginHorizontal: 10 }}>Đơn nạp thẻ và dịch vụ</Text>
+      </View>
+      <View style={{ padding: 10, flexDirection: 'row', alignItems: 'center', height: 40, backgroundColor: 'black', position: 'relative' }}>
+        <MaterialIcons name="notes" size={24} color="blue" />
+        <Text style={{ color: 'white', marginHorizontal: 10 }}>Đơn mua</Text>
+        <Text style={{ position: 'absolute', color: 'white', right: 5, fontSize: 10 }}>Xem lịch sử mua hàng</Text>
+      </View>
+      <View style={{ padding: 10, flexDirection: 'row', alignItems: 'center', height: 80, backgroundColor: 'black', justifyContent: 'space-around' }}>
+        <View>
+          <FontAwesome5 name="boxes" size={35} color="white" />
+        </View>
+        <View>
+          <MaterialCommunityIcons name="truck-cargo-container" size={35} color="white" />
+        </View>
+        <View>
+          <Entypo name="wallet" size={35} color="white" />
+        </View>
+        <View>
+          <Entypo name="star" size={35} color="white" />
+        </View>
+      </View>
+      <View>
+        <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+          {deals.map((item, index) => (
+            <View style={{ width: 150, backgroundColor: '#000', padding: 10, alignItems: 'center', borderWidth: 0.5, borderColor: '#aaa' }}>
+              <Image source={{ uri: item.image }} style={{ width: 120, height: 140, resizeMode: 'contain' }} />
+              <Text style={{ color: 'white', marginTop: 5 }}>Đã Từng Mua {index + 1} lần</Text>
+              <View style={{ width: 150, justifyContent: 'space-around', flexDirection: 'row', alignItems: 'center' }}>
+                <Text style={{ color: 'white', fontSize: 11, flex: 1 }}>{item.price}$</Text>
+                <View style={{ marginRight: 5 }}>
+                  <EvilIcons name="cart" size={20} color="white" style={{ backgroundColor: '#FF4500', borderRadius: 10, flex: 1 }} />
                 </View>
               </View>
             </View>
-            <ScrollView>
-              <Text
-                style={{
-                  fontSize: 10,
-                  textAlignVertical: "auto",
-                  padding: 5,
-                }}
-              >
-                Tên Sản Phẩm: {item?.title}
-              </Text>
-              <Text style={{ fontSize: 10, padding: 5 }}>
-                Màu Sắc: {item?.color}
-              </Text>
-              <Text style={{ fontSize: 10, padding: 5 }}>
-                Loại: {item?.size}
-              </Text>
-              <Text style={{ fontSize: 10, padding: 5 }}>
-                Giá Bán: {item?.price}
-              </Text>
+          ))}
+        </ScrollView>
+      </View>
+      <View >
+        <Text style={{ backgroundColor: '#aaa' }}>Tài Khoản</Text>
+        <View style={{ backgroundColor: 'black' }}>
+          <View style={{ borderTopWidth: 1, borderColor: "#aaa", backgroundColor: 'black' }}>
+            <Pressable style={({ pressed }) => [
+              {
+                flexDirection: 'row',
+                padding: 10,
+                backgroundColor: pressed ? "#aaa" : "#000"
+              }
 
-              <View style={{ flexDirection: "row" }}>
-                <Pressable onPress={() => navigator.navigate("ItemsScreen")}>
-                  <Text style={styles.buttonUpdateDesign}>Chỉnh Sửa</Text>
-                </Pressable>
-                <Pressable>
-                  <Text style={styles.buttondeleteDesign}>Xóa Sản Phẩm</Text>
-                </Pressable>
-              </View>
-            </ScrollView>
-          </Pressable>
-        ))}
-      </ScrollView>
+            ]}>
+              <AntDesign name="user" size={29} color="white" />
+              <Text style={{ fontSize: 15, marginLeft: 10, color: 'white' }}>Tài khoản vào bảo mật</Text>
+            </Pressable>
+          </View>
+        </View>
+        <View>
+          <View style={{ borderTopWidth: 1, borderColor: "#aaa" }}>
+            <Pressable style={({ pressed }) => [
+              {
+                flexDirection: 'row',
+                padding: 10,
+                backgroundColor: pressed ? "#aaa" : "#000"
+              }
 
-    </DrawerLayoutAndroid>
+            ]}>
+              <EvilIcons name="location" size={29} color="white" />
+              <Text style={{ fontSize: 15, marginLeft: 10, color: 'white' }}>Địa Chỉ</Text>
+            </Pressable>
+          </View>
+        </View>
+        <View>
+          <View style={{ borderTopWidth: 1, borderColor: "#aaa" }}>
+            <Pressable style={({ pressed }) => [
+              {
+                flexDirection: 'row',
+                padding: 10,
+                backgroundColor: pressed ? "#aaa" : "#000"
+              }
+
+            ]}>
+              <MaterialCommunityIcons name="account-alert-outline" size={29} color="white" />
+              <Text style={{ fontSize: 15, marginLeft: 10, color: 'white' }}>Tài Khoản / Thẻ Ngân Hàng</Text>
+            </Pressable>
+          </View>
+        </View>
+        <Text style={{ backgroundColor: '#aaa' }}>Cài Đặt</Text>
+        <View>
+          <View style={{ borderTopWidth: 1, borderColor: "#aaa" }}>
+            <Pressable style={({ pressed }) => [
+              {
+                flexDirection: 'row',
+                padding: 10,
+                backgroundColor: pressed ? "#aaa" : "#000"
+              }
+
+            ]}>
+              <Ionicons name="md-settings-outline" size={29} color="white" />
+              <Text style={{ fontSize: 15, marginLeft: 10, color: 'white' }}>Cài Đặt Chat</Text>
+            </Pressable>
+          </View>
+        </View>
+
+        <View>
+          <View style={{ borderTopWidth: 1, borderColor: "#aaa" }}>
+            <Pressable style={({ pressed }) => [
+              {
+                flexDirection: 'row',
+                padding: 10,
+                backgroundColor: pressed ? "#aaa" : "#000"
+              }
+
+            ]}>
+              <Entypo name="notification" size={24} color="white" />
+              <Text style={{ fontSize: 15, marginLeft: 10, color: 'white' }}>Cài Đặt Thông Báo</Text>
+            </Pressable>
+          </View>
+        </View>
+        <View>
+          <View style={{ borderTopWidth: 1, borderColor: "#aaa" }}>
+            <Pressable style={({ pressed }) => [
+              {
+                flexDirection: 'row',
+                padding: 10,
+                backgroundColor: pressed ? "#aaa" : "#000"
+              }
+
+            ]}>
+              <AntDesign name="meh" size={29} color="white" />
+              <Text style={{ fontSize: 15, marginLeft: 10, color: 'white' }}>Cài Đặt Riêng Tư</Text>
+            </Pressable>
+          </View>
+        </View>
+        <View>
+          <View style={{ borderTopWidth: 1, borderColor: "#aaa" }}>
+            <Pressable style={({ pressed }) => [
+              {
+                flexDirection: 'row',
+                padding: 10,
+                backgroundColor: pressed ? "#aaa" : "#000"
+              }
+
+            ]}>
+              <Feather name="user-x" size={29} color="white" />
+              <Text style={{ fontSize: 15, marginLeft: 10, color: 'white' }}>Người Dùng Đã Bị Chặn</Text>
+            </Pressable>
+          </View>
+        </View>
+        <View>
+          <View style={{ borderTopWidth: 1, borderColor: "#aaa" }}>
+            <Pressable style={({ pressed }) => [
+              {
+                flexDirection: 'row',
+                padding: 10,
+                backgroundColor: pressed ? "#aaa" : "#000"
+              }
+
+            ]}>
+              <Ionicons name="language-outline" size={29} color="white" />
+              <Text style={{ fontSize: 15, marginLeft: 10, color: 'white' }}>Ngôn Ngữ / language</Text>
+            </Pressable>
+          </View>
+        </View>
+        <Text style={{ backgroundColor: '#aaa' }}>Hỗ Trợ</Text>
+        <View>
+          <View style={{ borderTopWidth: 1, borderColor: "#aaa" }}>
+            <Pressable style={({ pressed }) => [
+              {
+                flexDirection: 'row',
+                padding: 10,
+                backgroundColor: pressed ? "#aaa" : "#000"
+              }
+
+            ]}>
+              <SimpleLineIcons name="support" size={29} color="white" />
+              <Text style={{ fontSize: 15, marginLeft: 10, color: 'white' }}>Trung Tâm Hỗ Trợ</Text>
+            </Pressable>
+          </View>
+        </View>
+        <View>
+          <View style={{ borderTopWidth: 1, borderColor: "#aaa" }}>
+            <Pressable style={({ pressed }) => [
+              {
+                flexDirection: 'row',
+                padding: 10,
+                backgroundColor: pressed ? "#aaa" : "#000"
+              }
+
+            ]}>
+              <MaterialIcons name="public" size={29} color="white" />
+              <Text style={{ fontSize: 15, marginLeft: 10, color: 'white' }}>Tiêu Chuẩn Cộng Đồng</Text>
+            </Pressable>
+          </View>
+        </View>
+        <View>
+          <View style={{ borderTopWidth: 1, borderColor: "#aaa" }}>
+            <Pressable style={({ pressed }) => [
+              {
+                flexDirection: 'row',
+                padding: 10,
+                backgroundColor: pressed ? "#aaa" : "#000"
+              }
+
+            ]}>
+              <MaterialIcons name="rule" size={29} color="white" />
+              <Text style={{ fontSize: 15, marginLeft: 10, color: 'white' }}>Điều Khoản</Text>
+            </Pressable>
+          </View>
+        </View>
+        <View>
+          <View style={{ borderTopWidth: 1, borderColor: "#aaa" }}>
+            <Pressable style={({ pressed }) => [
+              {
+                flexDirection: 'row',
+                padding: 10,
+                backgroundColor: pressed ? "#aaa" : "#000"
+              }
+
+            ]}>
+              <Feather name="star" size={29} color="white" />
+              <Text style={{ fontSize: 15, marginLeft: 10, color: 'white' }}>Đánh Giá</Text>
+            </Pressable>
+          </View>
+        </View>
+      </View>
+    </ScrollView >
+
   );
 };
 

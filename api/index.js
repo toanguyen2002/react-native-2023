@@ -46,7 +46,7 @@ const sendverifiCationEmail = async (email, verificationtoken) => {
   });
 
   const mailOption = {
-    form: "amazon.com",
+    form: "aml.com",
     to: email,
     subject: "Email verification",
     text: `click to verification email htttp://localhost:8081/verify/${verificationtoken}`,
@@ -61,15 +61,8 @@ const sendverifiCationEmail = async (email, verificationtoken) => {
 
 app.post("/register", async (req, res) => {
   try {
-    console.log("post");
-    console.log(req._read);
     const { name, email, password } = req.body;
-    console.log(name);
-    console.log(email);
-    console.log(password);
-
     //check
-
     const exsisting = await user.findOne({ email: email });
     if (exsisting) {
       return res.status(400).json({ message: "User is already exsist" });
