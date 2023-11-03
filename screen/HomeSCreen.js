@@ -24,6 +24,7 @@ import Banner from "../component/Banner";
 import Deals from "../component/Deals";
 import ListProduct from "../component/ListProduct";
 import Layoutbanner from "../component/Layoutbanner";
+import { useState } from "react";
 const HomeSCreen = () => {
 
 
@@ -39,15 +40,16 @@ const HomeSCreen = () => {
       url: "https://images-eu.ssl-images-amazon.com/images/G/31/img23/Books/BB/JULY/1242x550_Header-BB-Jul23.jpg",
     },
   ];
+  const [value, setValue] = useState()
   return (
     <ScrollView style={{ flex: 1, backgroundColor: '#fff' }} horizontal={false} >
-      <Search />
+      <Search setValue={setValue} />
       <Location />
       <ListCategories />
       <Banner />
       <Layoutbanner />
       <Deals />
-      <ListProduct />
+      <ListProduct value={value} />
     </ScrollView>
   );
 };

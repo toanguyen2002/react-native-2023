@@ -6,7 +6,7 @@ import { FontAwesome } from '@expo/vector-icons';
 import { useDispatch, useSelector } from 'react-redux';
 import { addToCart } from '../redux/CartReduce';
 
-const ListProduct = () => {
+const ListProduct = ({ value }) => {
     const [products, setproducts] = useState([]);
     const [numproducts, setNumproducts] = useState(20)
     const nav = useNavigation()
@@ -39,6 +39,7 @@ const ListProduct = () => {
             const respone = await axios.get(`https://dummyjson.com/products?limit=${numproducts}`);
             setproducts(respone.data.products);
         };
+        console.log(value);
         getAllProduct();
     }, [numproducts]);
     return (

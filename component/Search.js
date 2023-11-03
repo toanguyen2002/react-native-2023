@@ -4,7 +4,7 @@ import { AntDesign } from '@expo/vector-icons';
 import { Entypo } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
 import { useSelector } from 'react-redux';
-const Search = () => {
+const Search = ({ setValue }) => {
     const cart = useSelector(state => state.cart.cart)
     const nav = useNavigation();
 
@@ -12,7 +12,7 @@ const Search = () => {
         <View style={{ backgroundColor: '#FF4500', height: 50, justifyContent: 'center', alignItems: 'center', flexDirection: 'row' }}>
             <View style={{ borderRadius: 30, backgroundColor: '#aaa', flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }}>
                 <Entypo name="magnifying-glass" size={24} color="black" />
-                <TextInput style={{ height: 35, width: 270, marginRight: 5, marginLeft: 5 }} placeholder=' Enter name product' I />
+                <TextInput onChangeText={setValue} style={{ height: 35, width: 270, marginRight: 5, marginLeft: 5, outlineStyle: 'none' }} placeholder=' Enter name product' I />
             </View>
 
 
