@@ -52,9 +52,9 @@ const RegisterScreen = () => {
     <SafeAreaView style={styles.container}>
       <View style={{ marginTop: 60 }}>
         <Image
-          style={{ width: 150, height: 60 }}
+          style={{ width: 250, height: 100, resizeMode: 'contain' }}
           source={{
-            uri: "https://laginza.com/uploads/originals/2022/11/3344-amazon-logo-rgb.jpg",
+            uri: "https://www.logolynx.com/images/logolynx/a6/a671ef222a6e136f8fe7fd9cfc97e57b.png",
           }}
         />
       </View>

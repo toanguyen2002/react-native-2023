@@ -9,11 +9,23 @@ const Done = () => {
     const rou = useRoute()
     const nav = useNavigation()
     const cart = useSelector((state) => state.cart.cart)
-    const distpath = useDispatch(0)
+    const distpath = useDispatch()
     const ClickpayDone = () => {
         distpath(removeAllCart(cart))
-        console.log(cart);
-        nav.navigate('main')
+        fetch(`https://65474b9e902874dff3ac2238.mockapi.io/order`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                name: "Quang Toan",
+                productBuy: cart,
+                Date: 1699171487,
+                status: false,
+            })
+        }).then(() => {
+            distpath(removeAllCart(cart))
+        }).then(() => setLoadPay(false))
     }
     const totalvalue = useMemo(() => {
         const total = cart
@@ -37,11 +49,11 @@ const Done = () => {
             }
             {
                 loadPay ? <Pressable style={{ bottom: 20, position: 'absolute', width: Dimensions.get('window').width - 30, height: 40, borderRadius: 10, backgroundColor: 'red', justifyContent: 'center', alignItems: 'center' }}
-                    onPress={() => setLoadPay(false)}
+                    onPress={() => ClickpayDone()}
                 >
                     <Text style={{ color: 'white', fontWeight: 'bold', fontSize: 20 }}>Hoàn Tất</Text>
                 </Pressable> : <Pressable style={{ bottom: 20, position: 'absolute', width: Dimensions.get('window').width - 30, height: 40, borderRadius: 10, backgroundColor: 'rgb(124,252,0)', justifyContent: 'center', alignItems: 'center' }}
-                    onPress={() => ClickpayDone()}
+                    onPress={() => nav.navigate('main')}
                 >
                     <Text style={{ color: 'white', fontWeight: 'bold', fontSize: 20 }}>Về Nhà</Text>
                 </Pressable>

@@ -49,7 +49,7 @@ const HomeSCreen = () => {
       <Banner />
       <Layoutbanner />
       <Deals />
-      <ListProduct value={value} />
+      <ListProduct value={value} title={"Sản Phẩm Được Bán Nhiều Nhất"} />
     </ScrollView>
   );
 };

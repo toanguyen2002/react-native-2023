@@ -6,7 +6,7 @@ import { FontAwesome } from '@expo/vector-icons';
 import { useDispatch, useSelector } from 'react-redux';
 import { addToCart } from '../redux/CartReduce';
 
-const ListProduct = ({ value }) => {
+const ListProduct = ({ value, title }) => {
     const [products, setproducts] = useState([]);
     const [numproducts, setNumproducts] = useState(20)
     const nav = useNavigation()
@@ -44,7 +44,7 @@ const ListProduct = ({ value }) => {
     }, [numproducts]);
     return (
         <ScrollView >
-            <View style={{ justifyContent: 'center', alignItems: 'center', backgroundColor: 'black', marginTop: 10 }}><Text style={{ fontWeight: 'bold', fontSize: 20, color: 'white' }}>Sản Phẩm Được Bán Nhiều Nhất</Text></View>
+            <View style={{ justifyContent: 'center', alignItems: 'center', backgroundColor: 'black', marginTop: 10 }}><Text style={{ fontWeight: 'bold', fontSize: 20, color: 'white' }}>{title}</Text></View>
             <View style={{ flexWrap: 'wrap', flexDirection: 'row', alignItems: 'center', justifyContent: 'space-around', backgroundColor: 'white' }}>
                 {products.map((item, index) => (
                     <Pressable style={{ marginVertical: 5 }} key={index} onPress={() => nav.push("ItemsScreen", {
@@ -68,7 +68,7 @@ const ListProduct = ({ value }) => {
                                     {
                                         marginVertical: 5,
                                         backgroundColor: pressed ? 'yellow' : "#fff",
-                                        padding: 13,
+                                        padding: 6,
                                         justifyContent: "center",
                                         alignItems: "center",
                                         borderRadius: 20,

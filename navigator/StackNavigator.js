@@ -13,6 +13,7 @@ import AddressScreen from "../screen/AddressScreen";
 import StartScreen from "../screen/StartScreen";
 import PayScreen from "../screen/PayScreen";
 import Done from "../screen/Done";
+import TabView from "../screen/TabView";
 
 
 
@@ -70,6 +71,11 @@ const StackNavigator = () => {
         <Stack.Screen
           name="done"
           component={Done}
+          options={{ animation: 'flip', presentation: "modal", headerShown: false, gestureEnabled: false }}
+        />
+        <Stack.Screen
+          name="tabview"
+          component={TabView}
           options={{ animation: 'flip', presentation: "modal", headerShown: false, gestureEnabled: false }}
         />
       </Stack.Navigator>

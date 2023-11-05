@@ -93,6 +93,7 @@ const ProfileScreen = () => {
   ];
   const navigator = useNavigation();
   const draw = useRef(null)
+  const nav = useNavigation()
   return (
     <ScrollView style={{ backgroundColor: 'white' }}>
       <View style={{ position: 'relative', width: Dimensions.get('window').width, backgroundColor: '#FF4500', height: 100 }}>
@@ -166,20 +167,26 @@ const ProfileScreen = () => {
       <View style={{ borderWidth: 0.11, borderColor: '#aaa', padding: 10, flexDirection: 'row', alignItems: 'center', height: 40, backgroundColor: 'white', position: 'relative' }}>
         <MaterialIcons name="notes" size={24} color="blue" />
         <Text style={{ marginHorizontal: 10 }}>Đơn mua</Text>
-        <Text style={{ position: 'absolute', right: 5, fontSize: 10 }}>Xem lịch sử mua hàng</Text>
+        <Text style={{ position: 'absolute', right: 5, fontSize: 9, width: 66, textAlign: 'center' }}>Xem lịch sử mua hàng</Text>
       </View>
       <View style={{ borderWidth: 0.11, borderColor: '#aaa', padding: 10, flexDirection: 'row', alignItems: 'center', height: 80, backgroundColor: 'white', justifyContent: 'space-around' }}>
-        <View>
-          <FontAwesome5 name="boxes" size={35} color="black" />
-        </View>
-        <View>
+        <Pressable onPress={() => nav.navigate('tabview')}>
+          <View style={{ justifyContent: 'center', alignItems: 'center' }}>
+            <FontAwesome5 name="boxes" size={35} color="black" />
+            <Text style={{ fontWeight: 'bold', marginTop: 5, fontSize: 9, width: 66, textAlign: 'center' }}>Đơn Hàng Đang Mua</Text>
+          </View>
+        </Pressable>
+        <View style={{ justifyContent: 'center', alignItems: 'center' }}>
           <MaterialCommunityIcons name="truck-cargo-container" size={35} color="black" />
+          <Text style={{ fontWeight: 'bold', marginTop: 5, fontSize: 9, width: 66, textAlign: 'center' }}>Đơn Hàng Đang vận chuyển</Text>
         </View>
-        <View>
+        <View style={{ justifyContent: 'center', alignItems: 'center' }}>
           <Entypo name="wallet" size={35} color="black" />
+          <Text style={{ fontWeight: 'bold', marginTop: 5, fontSize: 9, width: 66, textAlign: 'center' }}>Đơn Hàng Đã thanh Toán</Text>
         </View>
-        <View>
+        <View style={{ justifyContent: 'center', alignItems: 'center' }}>
           <Entypo name="star" size={35} color="black" />
+          <Text style={{ fontWeight: 'bold', marginTop: 5, fontSize: 9, width: 66, textAlign: 'center' }}>Đơn Hàng chưa phản hồi</Text>
         </View>
       </View>
       <View>

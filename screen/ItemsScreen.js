@@ -209,7 +209,7 @@ const ItemsScreen = () => {
           borderRadius: 20,
         }}
       >
-        <Text style={{ color: "#fff" }}>Buy Now</Text>
+        <Text style={{ color: "#fff", fontWeight: 'bold' }}>Mua Ngay</Text>
       </Pressable>
       <Pressable
         style={{
@@ -224,7 +224,7 @@ const ItemsScreen = () => {
         }}
         onPress={() => addItemToCart(router?.params)}
       >
-        <Text style={{ color: "#fff" }}>Add To Cart</Text>
+        <Text style={{ color: "#fff", fontWeight: 'bold' }}>Thêm vào Giỏ Hàng</Text>
       </Pressable>
       {
         conmments.map((value, index) => (
