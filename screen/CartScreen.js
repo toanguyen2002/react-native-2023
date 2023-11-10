@@ -121,8 +121,8 @@ const CartScreen = () => {
             <View
               style={{
                 padding: 10,
-                backgroundColor: "#0033FF",
-                borderRadius: 30,
+                backgroundColor: "#FF6633",
+                borderRadius: 4,
                 marginVertical: 30,
               }}
             >
@@ -160,38 +160,39 @@ const CartScreen = () => {
                 </Text>
               )}
             </View>
-            <View>
+            < View style={{ justifyContent: 'center', alignItems: "center" }}>
               <Pressable
                 style={({ pressed }) => [
                   {
                     height: "70",
-                    backgroundColor: pressed ? "#aaa" : "#fff",
+                    backgroundColor: pressed ? "#FF6633" : "white",
                     justifyContent: "center",
                     alignItems: "center",
                     marginVertical: 20,
                     padding: 20,
-                    borderRadius: 30,
-                    borderColor: "#770000",
+                    borderRadius: 4,
+                    borderColor: "#FF6633",
                     borderWidth: 1,
+                    width: 350
                   },
                 ]}
                 onPress={() => navigate.navigate('payScreen')}
               >
-                <Text style={{ color: "#770000" }}>Thanh Toán Ngay</Text>
+                <Text style={{ color: "#FF6633" }}>Thanh Toán Ngay</Text>
               </Pressable>
             </View>
-            <View>
+            <View style={{ justifyContent: 'center', alignItems: "center" }}>
               <Pressable
                 onPressIn={fadeIn}
                 onPressOut={fadeOut}
                 style={({ pressed }) => [
                   {
-                    backgroundColor: pressed ? "#D3D3D3" : "#778899",
+                    backgroundColor: pressed ? "#white" : "#FF6633",
                     justifyContent: "center",
                     alignItems: "center",
                     marginVertical: 0,
                     padding: 20,
-                    borderRadius: 30,
+                    borderRadius: 4, width: 350
                   },
                 ]}
                 onPress={() => navigate.navigate("AddressScreen")}

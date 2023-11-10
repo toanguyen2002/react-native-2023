@@ -156,10 +156,10 @@ const styles = StyleSheet.create({
   ButtonStyle: {
     marginTop: 30,
     alignItems: "center",
-    backgroundColor: "#FFCC33",
+    backgroundColor: "#FF6633",
     height: 60,
     justifyContent: "center",
-    borderRadius: 50,
+    borderRadius: 4,
     marginVertical: 10,
   },
   TextRow: {

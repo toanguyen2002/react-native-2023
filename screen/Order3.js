@@ -1,10 +1,13 @@
-import { StyleSheet, Text, View } from 'react-native'
+import { Image, StyleSheet, Text, View } from 'react-native'
 import React from 'react'
+import ListProduct from '../component/ListProduct'
+
 
 const Order3 = () => {
     return (
-        <View>
-            <Text>Order3</Text>
+        <View style={{ alignItems: 'center', justifyContent: 'center' }}>
+            <Image source={require('../assets/a.png')} style={{ width: 250, height: 250, resizeMode: 'contain' }} />
+            <ListProduct value={""} title={"Có thể Bạn Cần"} />
         </View>
     )
 }

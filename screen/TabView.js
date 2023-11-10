@@ -8,6 +8,8 @@ import { Ionicons } from '@expo/vector-icons';
 import { Feather } from '@expo/vector-icons';
 import { Entypo } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native'
+import Order2 from './Order2'
+import Order3 from './Order3'
 const TabView = () => {
     const Tab = createMaterialTopTabNavigator()
     const nav = useNavigation()
@@ -32,8 +34,8 @@ const TabView = () => {
                 }}>
                 <Tab.Screen component={Order} name='Đơn Hàng Đang Mua' />
                 <Tab.Screen component={Order1} name='Đơn Hàng Đang vận chuyển' />
-                <Tab.Screen component={Order1} name='Đơn Hàng Đã thanh Toán' />
-                <Tab.Screen component={Order1} name='Đơn Hàng chưa phản hồi' />
+                <Tab.Screen component={Order2} name='Đơn Hàng Đã thanh Toán' />
+                <Tab.Screen component={Order3} name='Đơn Hàng chưa phản hồi' />
             </Tab.Navigator>
         </View>
 

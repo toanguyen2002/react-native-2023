@@ -90,7 +90,7 @@ const Banner = () => {
                     })}>
                         <View style={{ marginTop: 10, marginRight: 30, justifyContent: 'center', alignItems: 'center' }}>
                             <Image style={{ width: 150, height: 150, resizeMode: 'contain', borderRadius: 10 }} source={{ uri: item?.image }} />
-                            <View style={{ backgroundColor: 'red', padding: 10, borderRadius: 10, marginTop: 10 }}>
+                            <View style={{ backgroundColor: 'red', padding: 12, borderRadius: 4, marginTop: 10 }}>
                                 {item?.offer ? <Text style={{ fontWeight: 'bold', color: 'white' }}>
                                     SALE OFF {item?.offer}
                                 </Text> : <Text>SOLD OUT</Text>}

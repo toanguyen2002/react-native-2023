@@ -19,7 +19,7 @@ const Order = () => {
                     <View>
                         <View>{
                             item.productBuy.map((i, d) => (
-                                <View style={{ flexDirection: 'row', borderBottomColor: '#aaa', borderBottomWidth: 1, position: 'relative' }}>
+                                <View style={{ flexDirection: 'row', borderBottomColor: '#aaa', borderBottomWidth: 1, position: 'relative', }}>
                                     <Image source={{ uri: i.thumbnail }} style={{ width: 170, height: 170, resizeMode: 'contain' }} />
                                     <View style={{ marginLeft: 20 }}>
                                         <Text style={{ fontWeight: 'bold', fontSize: 15, marginVertical: 10 }}>{i.title}</Text>
@@ -27,13 +27,16 @@ const Order = () => {
                                         <View style={{ position: 'absolute', bottom: 15, right: 15 }}>
                                             <Text style={{}}>Giá Niêm Yết: <Text style={{ fontWeight: 'bold' }}>{i.price}</Text></Text>
                                             <Text style={{ marginVertical: 5 }}> Thành Tiền: <Text style={{ fontWeight: 'bold' }}>{i.price + i.price * 10 / 100}</Text></Text>
-                                            <View style={{ backgroundColor: 'red', justifyContent: 'center', alignItems: 'center', width: 163, height: 40, borderRadius: 10 }}>
+                                            <View style={{ backgroundColor: '#FF6633', justifyContent: 'center', alignItems: 'center', width: 163, height: 40, borderRadius: 4 }}>
                                                 <Text style={{ color: 'white', fontWeight: 'bold' }}>Xem Chi Tiết Đơn Hàng</Text>
                                             </View>
                                         </View>
 
                                     </View>
-                                    {item.status ? <Text style={{ color: 'green', position: 'absolute', left: 0, bottom: 11, fontSize: 9 }}>'Đơn Hàng Đã Được Xác Nhận'</Text> : <Text style={{ color: 'red', position: 'absolute', left: 0, bottom: 11, fontSize: 9 }}>Đơn Hàng Đang Đợi Người bán Phản Hồi</Text>}
+                                    {item.status ? <Text style={{
+                                        color: 'green', position: 'absolute', left: 0, bottom: 11, fontSize: 9, fontWeight
+                                            : 'bold'
+                                    }}>'Đơn Hàng Đã Được Xác Nhận'</Text> : <Text style={{ color: 'red', position: 'absolute', left: 0, bottom: 11, fontSize: 9, fontWeight: 'bold' }}>Đơn Hàng Đang Đợi Người bán Phản Hồi</Text>}
                                 </View>
                             ))}</View>
 

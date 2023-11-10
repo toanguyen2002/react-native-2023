@@ -67,31 +67,31 @@ const ListProduct = ({ value, title }) => {
                                 style={({ pressed }) => [
                                     {
                                         marginVertical: 5,
-                                        backgroundColor: pressed ? 'yellow' : "#fff",
-                                        padding: 6,
+                                        backgroundColor: pressed ? 'FF6633' : "#fff",
+                                        padding: 2,
                                         justifyContent: "center",
                                         alignItems: "center",
-                                        borderRadius: 20,
+                                        borderRadius: 4,
                                         width: 140,
                                         borderWidth: 1,
-                                        borderColor: '#C41E3A'
+                                        borderColor: '#FF6633'
                                     }
                                 ]}
                                 onPress={() => setopenModal(item)}
                             >
-                                <Text style={{ fontSize: 15, color: '#C0C0C0' }}>Buy Now</Text>
+                                <Text style={{ fontSize: 15, color: 'FF6633', fontWeight: 'bold' }}>Buy Now</Text>
                             </Pressable>
                             <Pressable
                                 style={({ pressed }) => [{
-                                    backgroundColor: pressed ? "#aaa" : "#FFC72C",
-                                    padding: 10,
+                                    backgroundColor: pressed ? "#aaa" : "#FF6633",
+                                    padding: 5,
                                     justifyContent: "center",
                                     alignItems: "center",
-                                    borderRadius: 20,
+                                    borderRadius: 4,
                                     width: 140,
                                 }]}
                                 onPress={() => addItemToCart(item)}  >
-                                <Text style={{ textShadowColor: 2, color: "brown" }}>
+                                <Text style={{ textShadowColor: 2, color: "white", fontWeight: 'bold' }}>
                                     Add To Cart
                                 </Text>
                             </Pressable>

@@ -165,11 +165,11 @@ const styles = StyleSheet.create({
   ButtonStyle: {
     marginTop: 30,
     alignItems: "center",
-    backgroundColor: "yellow",
+    backgroundColor: "#FF6633",
     //width: 150,
     height: 60,
     justifyContent: "center",
-    borderRadius: 50,
+    borderRadius: 4,
     //marginLeft: 100,
     fontSize: 30,
   },

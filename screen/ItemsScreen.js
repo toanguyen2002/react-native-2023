@@ -200,13 +200,13 @@ const ItemsScreen = () => {
       <Pressable
         style={{
           height: 50,
-          backgroundColor: "#FFCC00",
+          backgroundColor: "#FF6633",
           alignItems: "center",
           justifyContent: "center",
           marginHorizontal: 10,
           marginVertical: 10,
           padding: 10,
-          borderRadius: 20,
+          borderRadius: 4,
         }}
       >
         <Text style={{ color: "#fff", fontWeight: 'bold' }}>Mua Ngay</Text>
@@ -214,13 +214,13 @@ const ItemsScreen = () => {
       <Pressable
         style={{
           height: 50,
-          backgroundColor: "#FFCC00",
+          backgroundColor: "#FF6633",
           alignItems: "center",
           justifyContent: "center",
           marginHorizontal: 10,
           marginVertical: 10,
           padding: 10,
-          borderRadius: 20,
+          borderRadius: 4,
         }}
         onPress={() => addItemToCart(router?.params)}
       >
